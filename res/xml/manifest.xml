@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest>
+	<activity>
+		<index>web/tpl/devel/index.html</index>
+		<bbs>web/tpl/devel/bbs.html</bbs>
+	</activity>
+</manifest>
