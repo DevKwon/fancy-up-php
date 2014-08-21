@@ -7,8 +7,9 @@ fancy-up-php
 ===============================
 @ 폴더 역할
 ===============================
-/_example/기능별 샘플 페이지<br />
-/classes/ 클래스 폴더<br />
-/config/ 기본 설정 경로<br />
-/res/ 리소스 폴더<br />
-/src/ php 실 프로그램밍 폴더<br />
+/_example:기능별 샘플 페이지<br />
+/classes : 클래스 모음<br />
+/function: 함수 모음
+/config  : 기본 설정 경로<br />
+/res     : 리소스(xml, html, js, css) 폴더<br />
+/src     : php 실 프로그램밍 폴더<br />
