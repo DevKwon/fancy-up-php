@@ -5,7 +5,7 @@
 | @Email	: apmsoft@gmail.com
 | @HomePage	: http://www.apmsoftax.com
 | @Editor	: Eclipse(default)
-| @version : 1.0.1
+| @version : 1.0.2
 ----------------------------------------------------------*/
 
 # purpose : MVC 패턴목적, 디자인과 프로그램의 분리
@@ -34,13 +34,16 @@ class Template extends TemplateCompiler implements ArrayAccess
 	 * @var cache_dir	: 캐슁 경로
 	 * @var safemode	: true php태그코딩지우기, false 유지
 	 * @var chgimgsrc	: true 경로변경, false 사용자코딩 유지
+     * @var compression : 소스코드 압축, false 소스코드 상태 유지
 	 */
 	private $compile 		= false;
 	private $compile_dir	= '';
 	private $cache 			= false;
 	private $cache_dir;
 	protected $safemode 	= true;
-	protected $chgimgpath= false; 
+	protected $chgimgpath= false;
+    protected $compression=true;
+    protected $compression_tag = '';
 	
 	# 처음 실행 
 	public function __construct($filename)
@@ -122,17 +125,20 @@ class Template extends TemplateCompiler implements ArrayAccess
 	
 	# compile,cache,chgimgpath 설정변경
 	public function __set($name,$value){
-		if(!empty($value)){
-			switch($name){
-				case 'compile':
-				case 'compile_dir':
-				case 'cache':
-				case 'cache_dir':
-				case 'chgimgpath':
-				case 'safemode':
-					$this->{$name} = $value;
-					break;
-			}
+		switch($name){
+			case 'compile':
+			case 'compile_dir':
+			case 'cache':
+			case 'cache_dir':
+			case 'chgimgpath':
+			case 'safemode':
+				$this->{$name} = $value;
+				break;
+            case 'compression':
+                $this->compression = $value;
+                if(!$value) $this->compression_tag = '';
+                else $this->compression_tag = "\n";
+                break;
 		}
 	}
 	

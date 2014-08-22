@@ -166,7 +166,7 @@ class TemplateCompiler extends TemplateVariable
 												$this->includes[] = trim(str_replace($scriptletv,'',trim($infiles)));
 												#$matchvs=str_replace($callv,$callv.';',$matchvs);
 												#$re_matchvs.=(strpos($callv,';') !==false) ? $callv."\n" : $callv.';'."\n";
-												$re_matchvs.=(strpos($callv,';') !==false) ? $callv."\n" : $callv.';';
+												$re_matchvs.=(strpos($callv,';') !==false) ? $callv."\n" : $callv.';'.$this->compression_tag;
 												break;
 											case 'else':
 												$args = self::getTplVars($scriptlet[0]);
@@ -190,13 +190,13 @@ class TemplateCompiler extends TemplateVariable
 													$parentid=$this->current_id[$this->current_depth-2];
 													#$plustag = '$'.$scriptlet[0][1].' = &$'.$parentid.'[$'.$parentid.'i][\''.$scriptlet[0][1].'\'];'."\n";
 													#$plustag.= '$'.$scriptlet[0][1].'_cnt = count($'.$scriptlet[0][1].');'."\n";
-													$plustag = '$'.$scriptlet[0][1].' = &$'.$parentid.'[$'.$parentid.'i][\''.$scriptlet[0][1].'\'];';
-													$plustag.= '$'.$scriptlet[0][1].'_cnt = count($'.$scriptlet[0][1].');';
+													$plustag = '$'.$scriptlet[0][1].' = &$'.$parentid.'[$'.$parentid.'i][\''.$scriptlet[0][1].'\'];'.$this->compression_tag;
+													$plustag.= '$'.$scriptlet[0][1].'_cnt = count($'.$scriptlet[0][1].');'.$this->compression_tag;
 												}else{ // 깊이 0일때
 													#$plustag = '$'.$scriptlet[0][1].' = &$this->var_[\''.$scriptlet[0][1].'\'];'."\n";
 													#$plustag.= '$'.$scriptlet[0][1].'_cnt = count($'.$scriptlet[0][1].');'."\n";
-													$plustag = '$'.$scriptlet[0][1].' = &$this->var_[\''.$scriptlet[0][1].'\'];';
-													$plustag.= '$'.$scriptlet[0][1].'_cnt = count($'.$scriptlet[0][1].');';
+													$plustag = '$'.$scriptlet[0][1].' = &$this->var_[\''.$scriptlet[0][1].'\'];'.$this->compression_tag;
+													$plustag.= '$'.$scriptlet[0][1].'_cnt = count($'.$scriptlet[0][1].');'.$this->compression_tag;
 												}
 												$re_matchvs.=str_replace($callv,$plustag.'for($'.$scriptlet[0][1].'i=0; $'.$scriptlet[0][1].'i<$'.$scriptlet[0][1].'_cnt; $'.$scriptlet[0][1].'i++){',$callv);
 												break;
@@ -223,12 +223,14 @@ class TemplateCompiler extends TemplateVariable
 						}
 					}
 				}
-			$matchvs = str_replace($matchvs,$re_matchvs,$matchvs); 
-			$source = str_replace($match[0][$i],'<?php '.$matchvs.'?>',$source);
+    			$matchvs = str_replace($matchvs,$re_matchvs,$matchvs); 
+    			$source = str_replace($match[0][$i],'<?php '.$matchvs.'?>',$source);
 			
-			#html 줄여백 지우기
-			$source=str_replace("\r\n",'',$source);
-			$source=str_replace("\n",'',$source);
+			     #html 줄여백 지우기
+    			if($this->compression){
+        			$source=str_replace("\r\n",'',$source);
+        			$source=str_replace("\n",'',$source);
+                }
 			}
 		}
 	return $source;
