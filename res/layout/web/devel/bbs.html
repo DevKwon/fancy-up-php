@@ -1,0 +1,129 @@
+{% include_once "/res/layout/web/devel/header.html" %}
+
+<!--BBS-->
+<link href="/modules/bbs/skin/devel/list.css" rel="stylesheet"><!--bbs skin-->
+<script type="text/javascript" src="/modules/bbs/js/bbs.js"></script>
+<script type="text/javascript" src="/modules/comment/js/comment.js"></script>
+<script type="text/javascript">
+// bbs
+var act = '{%_GET.act%}';
+var bbs_id='notice';
+var bbs_list_type = 'news';
+var bbs_skin = 'devel';
+
+//comment
+var comment_id='notice';
+var comment_skin = 'devel';
+var comment_foreign_key = '';
+
+// paging
+var paging_theme = 'gray';
+
+$(document).ready(function()
+{
+    bbs_set_resources();
+
+    var History = window.History, State = History.getState();
+    History.Adapter.bind(window,'statechange',function(){
+        var State = History.getState();
+        if(_.isUndefined(State.data.mode)){State.data.mode='list';}
+        if(State !=null && State.data !=null && State.data.mode !=null){
+            bbs_skin_template(State.data.mode, State.data);
+        }
+    });
+    History.pushState(convertUrlToJson('{%_SERVER.QUERY_STRING%}'), null, null);
+});
+
+</script>
+</head>
+<body>
+    <div class="container">
+         {% include_once "/res/layout/web/devel/title_bar.html" %}
+         
+        <h3>작동</h3>
+        <div id="bbs"></div>
+        <div id="comment"></div>
+        <div><ul id="paging" class="pagination"></ul></div>
+        <div id="comment_write"></div>
+         
+         <h3>멀티게시판 설치 방법</h3>
+         <div class="bs-callout bs-callout-warning">
+            <h4>1) 스크립트</h4>
+            <ol type="a">
+              <li>적용하고자 하는 게시판 테이블 코드<code>var bbs_id, var comment_id</code>를 변경하세요</li>
+              <li>원하는 스킨으로 변경하고자 할때 <code>var bbs_skin, var comment_skin, CSS SKIN 경로</code>를 변경하세요</li>
+            </ol>
+        </div>
+        <pre class="brush: js;">
+            &lt;!--BBS--&gt;
+            &lt;link href="/modules/bbs/skin/devel/style.css" rel="stylesheet"&gt;&lt;!--bbs skin--&gt;
+            &lt;script type="text/javascript" src="/modules/bbs/js/bbs.js"&gt;&lt;/script&gt;
+            &lt;script type="text/javascript" src="/modules/comment/js/comment.js"&gt;&lt;/script&gt;
+            &lt;script type="text/javascript"&gt;
+            &#47;&#47; bbs
+            var act = '&#123;%_GET.act%&#125;';
+            var bbs_id='notice';
+            var bbs_list_type = 'news';
+            var bbs_skin = 'devel';
+            
+            &#47;&#47;comment
+            var comment_id='notice';
+            var comment_skin = 'devel';
+            var comment_foreign_key = '';
+            
+            &#47;&#47; paging
+            var paging_theme = 'gray';
+            
+            $(document).ready(function()
+            {
+                bbs_set_resources();
+            
+                var History = window.History, State = History.getState();
+                History.Adapter.bind(window,'statechange',function(){
+                    var State = History.getState();
+                    if(_.isUndefined(State.data.mode)){State.data.mode='list';}
+                    if(State !=null && State.data !=null && State.data.mode !=null){
+                        bbs_skin_template(State.data.mode, State.data);
+                    }
+                });
+                var history_parametar = convertUrlToJson('&#123;%_SERVER.QUERY_STRING&#125;');
+                history_parametar.state = _.now();
+                History.pushState(history_parametar, null, null);
+            });        
+            </script>
+        </pre>
+        
+        <h4> 2) HTML</h4>
+        <pre class="brush: js;">
+            <div id="bbs"></div>
+            <div id="comment"></div>
+            <div><ul id="paging" class="pagination"></ul></div>
+            <div id="comment_write"></div>
+        </pre>
+        
+        <h4> 3) 설정 관련 모듈(XML)</h4>
+        <ul class="list-group">
+          <li class="list-group-item">bbs/xml/<b>{ filter_*.xml, inc.xml, querys.xml }</b></li>
+          <li class="list-group-item">comment/xml/<b>{ filter_*.xml, inc.xml, querys.xml }</b></li>
+          <li class="list-group-item">fileupload/xml/<b>{ inc.xml }</b></li>
+        </ul>
+        
+        <hr />
+        <h3>식별자 설명</h3>
+        <ul class="list-group">
+          <li class="list-group-item">@bbs_id : 게시판 코드명(fu_bbs_<b>notice</b>)</li>
+          <li class="list-group-item">@bbs_list_type : 게시판 리스트 출력 타입(list:다단답변형게시판, news:뉴스형, gallery:이미지갤러리, faq:질문과답변)</li>
+          <li class="list-group-item">@bbs_skin : 게시판 스킨 폴더명(bbs/skin/<b>devel</b>)</li>
+          <li class="list-group-item">@comment_id : 댓글 코드명</li>
+          <li class="list-group-item">@comment_skin : 댓글 스킨명(comment/skin/<b>devel</b>)</li>
+          <li class="list-group-item">@paging_theme : 페이징 네이게이션 css 테마(스킨)명</li>
+          <li class="list-group-item">@&#123;%params_json%&#125; : 첫실행 모드 설정 JSON DATA TYPE ({%params_json%})</li>
+        </ul>
+        
+        
+        {% include_once "/res/layout/web/devel/copyright.html" %}
+</div>
+</body>
+
+
+{% include_once "/res/layout/web/devel/footer.html" %}

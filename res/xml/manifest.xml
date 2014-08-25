@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest>
 	<activity>
-		<index>web/tpl/devel/index.html</index>
-		<bbs>web/tpl/devel/bbs.html</bbs>
+		<index>devel/index.html</index>
+		<bbs>devel/bbs.html</bbs>
+		<comment>devel/comment.html</comment>
+		<member>devel/member.html</member>
 	</activity>
 </manifest>

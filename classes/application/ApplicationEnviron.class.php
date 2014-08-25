@@ -3,27 +3,40 @@
 | @Author   : 김종관
 | @Email    : apmsoft@gmail.com
 | @Editor   : Eclipse(default)
-| @UPDATE   : 14-08-19
+| @UPDATE   : 14-08-25
 -------------------------------------------------------*/
 
 # 접속에 따른 디바이스|브라우저등 정보
-class ApplicationEnviron implements ArrayAccess
+class ApplicationEnviron
 {
-    private $environ = array();
+    private $agent;
+    private $is_phone_device = false;
+    private $host;
+    private $lang;
     
     public function __construct()
     {
         # 기본 디바이스 인지 확인 하기 위한 체크
         $agent=$_SERVER[ 'HTTP_USER_AGENT'];
         if(preg_match( '/(Android|iPod|iPhone|Windows Phone|lgtelecom|Windows CE)/', $agent)){
-            if(strstr($agent,'Android')) $this->environ['agent']='Android';
-            else if(strstr($agent,'iPod')) $this->environ['agent']='iPod';
-            else if(strstr($agent,'iPhone')) $this->environ['agent']='iPhone';
-            else if(strstr($agent,'iPad')) $this->environ['agent']='iPad';
-            else if(strstr($agent,'Windows Phone')) $this->environ['agent']='Windows Phone';
-            else if(strstr($agent,'Windows CE')) $this->environ['agent']='Windows CE';
-            else if(strstr($agenst,'lgtelecom')) $this->environ['agent']='lgtelecom';
+            if(strstr($agent,'Android')) $this->agent='Android';
+            else if(strstr($agent,'iPod')) $this->agent='iPod';
+            else if(strstr($agent,'iPhone')) $this->agent='iPhone';
+            else if(strstr($agent,'iPad')) $this->agent='iPad';
+            else if(strstr($agent,'Windows Phone')) $this->agent='Windows Phone';
+            else if(strstr($agent,'Windows CE')) $this->agent='Windows CE';
+            else if(strstr($agenst,'lgtelecom')) $this->agent='lgtelecom';
+            
+            # 스마트폰 디바이스 접속 여부
+            $this->is_phone_device = true;
         }
+        
+        # 언어
+        preg_match_all('/([a-z]{1,8}(-[a-z]{1,8})?)\s*(;\s*q\s*=\s*(1|0\.[0-9]+))?/i', $_SERVER['HTTP_ACCEPT_LANGUAGE'], $lang_parse);
+        $this->lang = $lang_parse[1][1];
+        
+        # host url
+        $this->host = 'http://'.$_SERVER['SERVER_NAME'];
     }
     
     #@ return boolean
@@ -37,29 +50,17 @@ class ApplicationEnviron implements ArrayAccess
     }
     
     #@ interface : ArrayAccess
-    public static function offsetSet($offset, $value){
-        if(is_array($value)){
-            if(isset($this->environ[$offset])) $this->environ[$offset] = array_merge($this->environ[$offset],$value);
-            else $this->environ[$offset] = $value;
+    public function __set($name, $value){
+        if(property_exists(__CLASS__,$name)){
+            return $this->{$name} = $value;
         }
-        else{ $this->environ[$offset] = $value; }
     }
 
-    #@ interface : ArrayAccess
-    public function offsetExists($offset){
-        if(isset(self::$environ[$offset])) return isset(self::$environ[$offset]);
-        else return isset(self::$environ[$offset]);
-    }
-
-    #@ interface : ArrayAccess
-    public function offsetUnset($offset){
-        if(self::offsetExist($offset)) unset(self::$environ[$offset]);
-        else unset(self::$environ[$offset]);
-    }
-
-    #@ interface : ArrayAccess
-    public function offsetGet($offset) {
-        return isset(self::$environ[$offset]) ? self::$environ[$offset] : self::$environ[$offset];
+    #@ return
+    public function __get($name) {
+        if(property_exists(__CLASS__,$name)){
+            return $this->{$name};
+        }
     }
 }
 ?>

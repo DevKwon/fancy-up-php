@@ -10,7 +10,6 @@ session_start();
 # $path 경로 설정 필요 및 설정
 define('_ROOT_PATH_',$path);
 define('_CHRSET_','utf-8');
-define('_LANG_','ko');
 
 # 기본 설정
 define('_PLUGINS_','plugins');
@@ -29,14 +28,8 @@ define('_DATA_','_data');
 define('_UPLOAD_','_data/files');
 define('_TPL_','_data/tpl');
 
-# 기타 프로그램설정정보
-define('_SITE_HOST_','http://fancyup.c1p.kr');
-
 # 데이타베이스 정보
 include_once _ROOT_PATH_.'/config/config.db.php';
-
-# API
-define('_GCM_API_KEY_','AIzaSyCHYebMTKBJ9jh15xPbyBfWG4Yv9ZPU7qM');
 
 # 클래스 자동 인클루드
 function __autoload($class_name){
@@ -59,6 +52,13 @@ function __autoload($class_name){
     }
 }
 
-# 전체 리소스::/res/values/strings_ko.xml 자동
+# 기본 선언 클래스
+# 어플리케이션 환경
+$app=new ApplicationEnviron();
+
+define('_LANG_',$app->lang);        # 언어
+define('_SITE_HOST_',$app->host);  # HOST URL
+
+# resources ::/res/values/strings_ko.xml 자동
 $res=new Res();
 ?>
