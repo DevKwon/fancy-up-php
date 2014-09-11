@@ -3,7 +3,7 @@
 | @Author	: 김종관
 | @Email	: apmsoft@gmail.com
 | @Editor	: Eclipse(default)
-| version : 1.0.0
+| version : 1.1
 ----------------------------------------------------------*/
 
 # purpose : MVC 패턴목적, 디자인과 프로그램의 분리
@@ -86,8 +86,8 @@ class TemplateCompiler extends TemplateVariable
 			 	}
 			 }
 		}*/
-				
-		$source = str_replace('<%','{%',str_replace('%>','%}',$source));
+
+		/*$source = str_replace('<%','{%',str_replace('%>','%}',$source));*/
 		preg_match_all("|{%[^%}](.*)[^%}]+%}|U",$source,$match,PREG_PATTERN_ORDER);
 		if(is_array($match[0]))
 		{
@@ -280,31 +280,32 @@ class TemplateCompiler extends TemplateVariable
 					$result = str_replace($gvalid.'.','',$vars);
 				}
 			}
-			// for/배열 문변수 배열 {%name._required%} -> $args[name][required] = true;
+			// for/배열 문변수 배열 {%name.required%} -> $args[name][required] = true;
 			else{
 				$queryid = explode('.',$vars);
-				#print_r($queryid);
+				//print_r($queryid);
+				//Out::prints_ln($vars);
 				#배열로 직접 접근
-				if($this->var_[$queryid[0]])
+				if($this->var_[$queryid[0]][$queryid[1]])
 				{
-					$result='$this->var_[\''.str_replace('_','',$queryid[0]).'\']';
+					$result='$this->var_[\''.$queryid[0].'\']';
 					$count=count($queryid);
 					for($i=1; $i<$count; $i++)
 					{
 						$p=$i-1;
-						//변수 키호출 {%month_.key_.0.date%}
-						if($queryid[$i] =='key_'){
-							$k=str_replace('_','','$'.$queryid[$p]).'i';
+						//변수 키호출 {%month.key.0.date%}
+						if($queryid[$i] =='key'){
+							$k='$'.$queryid[$p].'i';
 							$result.='['.$k.']';
 						}
-						//무조건 i 순번키 적용 {%month_.i_%}
-						else if($queryid[$i] =='i_'){
-							$k=str_replace($vars,'$monthi',$vars);
-							$result=$k;
+						//무조건 i 순번키 적용 {%month.i%}
+						else if($queryid[$i] =='i'){
+							$k=str_replace($vars,'[$'.$queryid[0].'i]',$vars);
+							$result.=$k;
 						}
 						else{
 							$k=$queryid[$i];
-							$result.='['.$k.']';
+							$result.='[\''.$k.'\']';
 						}
 					}
 				}

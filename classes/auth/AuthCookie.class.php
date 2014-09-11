@@ -16,7 +16,7 @@ class AuthCookie extends ArrayAccess
 		'userid'	=> 'axUserID',
 		'level'		=> 'axLevel',
 		'name'		=> 'axName',
-		'nicname'	=> 'axNicName',
+		'nickname'	=> 'axNickName',
 		'email'		=> 'axEmail',
 		'sex'		=> 'axSex',
 		'ip'		=> 'axIP'

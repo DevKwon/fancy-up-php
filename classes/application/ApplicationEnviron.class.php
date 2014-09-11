@@ -3,7 +3,7 @@
 | @Author   : 김종관
 | @Email    : apmsoft@gmail.com
 | @Editor   : Eclipse(default)
-| @UPDATE   : 14-08-25
+| @UPDATE   : 14-08-26
 -------------------------------------------------------*/
 
 # 접속에 따른 디바이스|브라우저등 정보
@@ -13,6 +13,7 @@ class ApplicationEnviron
     private $is_phone_device = false;
     private $host;
     private $lang;
+    private $http_referer =null;
     
     public function __construct()
     {
@@ -29,12 +30,21 @@ class ApplicationEnviron
             
             # 스마트폰 디바이스 접속 여부
             $this->is_phone_device = true;
+            
+            # 이전 접속경로
+            if(!is_null($_SERVER['HTTP_REFERER']) && isset($_SERVER['HTTP_REFERER'])){
+                $this->http_referer = $_SERVER['HTTP_REFERER'];
+            }
         }
         
         # 언어
-        preg_match_all('/([a-z]{1,8}(-[a-z]{1,8})?)\s*(;\s*q\s*=\s*(1|0\.[0-9]+))?/i', $_SERVER['HTTP_ACCEPT_LANGUAGE'], $lang_parse);
-        $this->lang = $lang_parse[1][1];
-        
+        //preg_match_all('/([a-z]{1,8}(-[a-z]{1,8})?)\s*(;\s*q\s*=\s*(1|0\.[0-9]+))?/i', $_SERVER['HTTP_ACCEPT_LANGUAGE'], $lang_parse);
+        //print_r($lang_parse);
+        //$http_lang = $lang_parse[1][1];
+        //$this->lang = ($http_lang) ? $http_lang : substr($lang_parse[1][0],0,2);
+        //if(!$this->lang) $this->lang = 'ko';
+        $this->lang = (isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])) ? substr($_SERVER['HTTP_ACCEPT_LANGUAGE'],0,2) : 'ko';
+
         # host url
         $this->host = 'http://'.$_SERVER['SERVER_NAME'];
     }

@@ -4,7 +4,7 @@
 | @Email	: apmsoft@gmail.com
 | @HomePage	: http://www.apmsoftax.com
 | @Editor	: Eclipse(default)
-| @UPDATE	: 2010-02-16
+| @UPDATE	: 1.1
 ----------------------------------------------------------*/
 final class Res
 {
@@ -47,6 +47,40 @@ final class Res
         $resource_obj=new XmlSimple($filename);
         $resource_xml=$resource_obj->fetch($resource_obj->query($query));
         $this->resource->{$query}=&$resource_xml[0];
+    }
+    
+    #@ void
+    # XML 데이타 추가 관리
+    # $filename : XML 파일 전체 경로
+    # $elementName : $res->resource->{리소스네임}
+    # $res->setResourceRoot(_ROOT_PATH_.'/'._QUERY_.'/cp_querys.xml', '리소스네임');
+    public function setResourceRoot($filename, $elementName)
+    {
+        # xml 파일
+        $resource_obj=new XmlSimple($filename);
+        if(is_object($resource_obj))
+        {
+            $res_root = array();
+            foreach($resource_obj as $root)
+            {
+                if(is_object($root))
+                {
+                    $i=0;
+                    foreach($root as $gid=>$nodes)
+                    {
+                        $res_root[$i]['gid']=$gid;                        
+                        if(is_object($nodes)){
+                            foreach($nodes as $name=>$value){
+                                $res_root[$i][$name]=strval($value);
+                            }
+                        }
+                        $i++;
+                    }
+                    
+                    $this->resource->{$elementName} =&$res_root;
+                }
+            }
+        }
     }
     
     #@ return array
