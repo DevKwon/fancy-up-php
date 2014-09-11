@@ -1,1 +1,5 @@
-.svn
+*.svn
+config/config.php
+common/*
+res/layout/*
+res/query/*
