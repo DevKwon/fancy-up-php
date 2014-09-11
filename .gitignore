@@ -1,5 +1,4 @@
 *.svn
-config/config.php
 config/config.db.php
 common/*
 res/layout/*
