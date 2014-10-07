@@ -192,13 +192,23 @@ class TemplateCompiler extends TemplateVariable
 													#$plustag.= '$'.$scriptlet[0][1].'_cnt = count($'.$scriptlet[0][1].');'."\n";
 													$plustag = '$'.$scriptlet[0][1].' = &$'.$parentid.'[$'.$parentid.'i][\''.$scriptlet[0][1].'\'];'.$this->compression_tag;
 													$plustag.= '$'.$scriptlet[0][1].'_cnt = count($'.$scriptlet[0][1].');'.$this->compression_tag;
+                                                    
+                                                    // 배열 갯수 일반 변수에 자동 저장
+                                                    $plustag.='$this->var_[\''.$scriptlet[0][1].'_count\']=$'.$scriptlet[0][1].'_cnt;'.$this->compression_tag;
 												}else{ // 깊이 0일때
 													#$plustag = '$'.$scriptlet[0][1].' = &$this->var_[\''.$scriptlet[0][1].'\'];'."\n";
 													#$plustag.= '$'.$scriptlet[0][1].'_cnt = count($'.$scriptlet[0][1].');'."\n";
 													$plustag = '$'.$scriptlet[0][1].' = &$this->var_[\''.$scriptlet[0][1].'\'];'.$this->compression_tag;
 													$plustag.= '$'.$scriptlet[0][1].'_cnt = count($'.$scriptlet[0][1].');'.$this->compression_tag;
+                                                    $plustag.= '$'.$scriptlet[0][1].'_cnt = count($'.$scriptlet[0][1].');'.$this->compression_tag;
+                                                    
+                                                    // 배열 갯수 일반 변수에 자동 저장
+                                                    $plustag.='$this->var_[\''.$scriptlet[0][1].'_count\']=$'.$scriptlet[0][1].'_cnt;'.$this->compression_tag;
 												}
 												$re_matchvs.=str_replace($callv,$plustag.'for($'.$scriptlet[0][1].'i=0; $'.$scriptlet[0][1].'i<$'.$scriptlet[0][1].'_cnt; $'.$scriptlet[0][1].'i++){',$callv);
+                                                
+                                                # 순번 자동 index 라는 변수에 등록
+                                                $re_matchvs.='$'.$scriptlet[0][1].'[$'.$scriptlet[0][1].'i][\'index\']=$'.$scriptlet[0][1].'i;'.$this->compression_tag;
 												break;
 											default : // 함수,클래스 전부삭제하고 변수값만 남겨놓는다
 												$args = self::getTplVars($scriptlet[0]);

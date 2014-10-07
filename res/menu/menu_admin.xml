@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<resources>
+        <admin>
+            <menu title="회원관리" href="./admin.php?act=member" mid="0100"></menu>
+            <menu title="게시판관리" href="./admin.php?act=bbs_list" mid="0200"></menu>
+            <menu title="팝업관리" href="./admin.php?act=popup" mid="0300"></menu>
+        </admin>
+        <admin_0000>
+            <menu title="주소록" href="./admin.php?act=admin" mid="0001"></menu>
+            <menu title="근태기록" href="./admin.php?act=attendance" mid="0002"></menu>
+        </admin_0000>
+        <admin_0100>
+            <menu title="회원목록" href="./admin.php?act=member" mid="0101"></menu>
+        </admin_0100>
+        <admin_0200>
+            <menu title="게시판목록" href="./admin.php?act=bbs_list" mid="0201"></menu>
+        </admin_0200>
+        <admin_0300>
+            <menu title="팝업목록" href="./admin.php?act=popup" mid="0301"></menu>
+        </admin_0300>
+</resources> 

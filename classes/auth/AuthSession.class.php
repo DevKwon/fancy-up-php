@@ -15,8 +15,8 @@ class AuthSession
     # 관리자용 세션 항목
     private $auth_admin_args = array(
         'uid' => 'admin_uid',
+        'name'=>'admin_name',
         'userid' => 'admin_userid',
-        'email' => 'admin_email',
         'level' => 'admin_level'
     );
     
@@ -26,7 +26,6 @@ class AuthSession
         'userid'=>'auth_userid',
         'name'=>'auth_name',
         'nickname'=>'auth_nickname',
-        'email'=>'auth_email',
         'level'=>'auth_level'
     );
     
@@ -102,6 +101,24 @@ class AuthSession
         foreach($args as $k=>$v){
             if(isset($_SESSION[$v])){
                 unset($_SESSION[$v]);
+            }
+        }
+    }
+    
+    #@ void
+    # 세션 전부 비우기
+    public function clearAuth(){
+        $admin_args=&$this->auth_admin_args;
+        foreach($admin_args as $ak=>$av){
+            if(isset($_SESSION[$av])){
+                unset($_SESSION[$av]);
+            }
+        }
+        
+        $www_args=&$this->auth_www_args;
+        foreach($www_args as $wk=>$wv){
+            if(isset($_SESSION[$wv])){
+                unset($_SESSION[$wv]);
             }
         }
     }

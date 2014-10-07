@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<resources>
+        <web>
+            <menu title="Home" href="./?act=index" mid="0100"></menu>
+            <menu title="회사소개" href="./?act=member" mid="0200"></menu>
+            <menu title="사업분야" href="./?act=login" mid="0300"></menu>
+            <menu title="Portfolio" href="./?act=login" mid="0400"></menu>
+            <menu title="투자/제휴문의" href="./?act=login" mid="0500"></menu>
+            <menu title="고객센터" href="./?act=bbs_notice" mid="0600"></menu>
+        </web>
+        <sub_0600>
+        	<menu title="공지사항(notice)" href="./?act=bbs_notice" mid="0601"></menu>
+        	<menu title="대시보드(dashboard)" href="./?act=bbs_dashboard" mid="0602"></menu>
+        	<menu title="질문게시판(QnA)" href="./?act=bbs_qna" mid="0603"></menu>
+        </sub_0600>
+</resources>

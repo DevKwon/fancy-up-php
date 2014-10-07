@@ -20,6 +20,7 @@ define('_SRC_','src');
 # 리소스
 define('_QUERY_','res/query');
 define('_VALUES_','res/values');
+define('_MENU_','res/menu');
 define('_XML_','res/xml');
 define('_LAYOUT_','res/layout');
 

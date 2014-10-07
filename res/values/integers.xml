@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<resources>
+    <integer>
+       <pay_price>20000</pay_price>
+       <adult_price>10000</adult_price>
+       <child_price>10000</child_price>
+    </integer>
+</resources>
