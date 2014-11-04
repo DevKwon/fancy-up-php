@@ -4,32 +4,31 @@
 | @Email	: apmsoft@gmail.com
 | @HomePage	: http://www.apmsoftax.com
 | @Editor	: Eclipse(default)
-| @UPDATE	: 1.1
+| @UPDATE	: 1.1.1
 ----------------------------------------------------------*/
 final class Res
 {
     private $nation=_LANG_; // 국가코드
-    
+
     // resource 값
     private $strings = array();
-    private $manifest=array();
     private $resource;
-	
-	# 배열값 추가 등록    
+
+	# 배열값 추가 등록
     public function __construct($nation=''){
         if($nation){
             $this->nation = $nation;
         }
-             
+
         # 기본 환경설정 xml
         $string_obj=new XmlSimple(_ROOT_PATH_.'/'._VALUES_.'/strings_'.$this->nation.'.xml');
         $string_xml=$string_obj->fetch($string_obj->query('resources'));
         $this->strings=&$string_xml[0];
-        
+
         # resource 객체화 시키기
         $this->resource = new ArrayObject(array(), ArrayObject::STD_PROP_LIST);
     }
-    
+
     #@ void
     # XML 데이타 추가 관리
     # $filename : XML 파일 전체 경로
@@ -42,13 +41,37 @@ final class Res
     {
         if(!$query)
             Out::prints_json(array('result'=>'false', 'msg'=>'empty : $query'));
-        
+
         # xml 파일
         $resource_obj=new XmlSimple($filename);
-        $resource_xml=$resource_obj->fetch($resource_obj->query($query));
-        $this->resource->{$query}=&$resource_xml[0];
+        $result = $resource_obj->query($query);
+        if(is_array($result))
+        {
+            $res_root = array();
+            $i=0;
+            foreach($result[0] as $gid=>$nodes)
+            {
+                if(is_object($nodes))
+                {
+                    $depth_attr_count=count($nodes->attributes());
+                    $n=0;
+                    if($depth_attr_count>0){
+                         $depth = &$res_root[$i];
+                        foreach($nodes[$n]->attributes() as $depth_attrk=>$depth_attrv){
+                            $depth[$depth_attrk] = strval($depth_attrv);
+                            $ni++;
+                        }
+                        $depth['value'] = strval($nodes[0]);
+                    }else{
+                        $res_root[$gid] = strval($nodes[0]);
+                    }
+                }
+                $i++;
+              }
+            $this->resource->{$query} =&$res_root;
+        }
     }
-    
+
     #@ void
     # XML 데이타 추가 관리
     # $filename : XML 파일 전체 경로
@@ -68,21 +91,63 @@ final class Res
                     $i=0;
                     foreach($root as $gid=>$nodes)
                     {
-                        $res_root[$i]['gid']=$gid;                        
-                        if(is_object($nodes)){
-                            foreach($nodes as $name=>$value){
-                                $res_root[$i][$name]=strval($value);
+                        $res_root[$i]['gid']=$gid;
+                        if(is_object($nodes))
+                        {
+                            foreach($nodes as $name=>$value)
+                            {
+                                if(count($value)>0){
+                                    $depth = &$res_root[$i][$name];
+                                    $n=0;
+                                    foreach($value as $ck =>$cv)
+                                    {
+                                        # depth attributes
+                                        $depth_attr_count=count($nodes->{$name}->{$ck}[$n]->attributes());
+                                        $depth_array = array();
+                                        if($depth_attr_count>0){
+                                            foreach($nodes->{$name}->{$ck}[$n]->attributes() as $depth_attrk=>$depth_attrv){
+                                                $depth[$ck][$n][$depth_attrk] = strval($depth_attrv);
+                                            }
+                                            $depth[$ck][$n]['value'] = strval($cv);
+
+                                        }else{
+                                            $depth[$ck][$n] = strval($cv);
+                                        }
+                                        $n++;
+
+                                        // attributes
+                                        $attr_count=count($nodes->{$name}->attributes());
+                                        if($attr_count>0)   {
+                                            $attr=&$res_root[$i][$name];
+                                            foreach($nodes->{$name}->attributes() as $attrk=>$attrv){
+                                                $attr[$attrk]=strval($attrv);
+                                            }
+                                        }
+                                    }
+                                }
+                                else{
+                                    $attr_count=count($nodes->{$name}->attributes());
+                                    if($attr_count>0)   {
+                                        $attr=&$res_root[$i][$name];
+                                        foreach($nodes->{$name}->attributes() as $attrk=>$attrv){
+                                            $attr[$attrk]=strval($attrv);
+                                        }
+                                        $attr['value']=strval($value);
+                                    }else{
+                                        $res_root[$i][$name]=strval($value);
+                                    }
+                                }
                             }
                         }
                         $i++;
                     }
-                    
+
                     $this->resource->{$elementName} =&$res_root;
                 }
             }
         }
     }
-    
+
     #@ return array
     # 프라퍼티 값 포함한 가져오기
     public function __get($propertyName){

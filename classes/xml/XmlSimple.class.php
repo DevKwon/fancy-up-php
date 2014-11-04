@@ -58,7 +58,7 @@ class XmlSimple
 			if(count($result[$i])>0)
 			{
 				foreach($result[$i] as $k=>$v)
-				{				
+				{
 					// child -> attributes
 					$attr_count=count($v->attributes());
 					if($attr_count>0)	{

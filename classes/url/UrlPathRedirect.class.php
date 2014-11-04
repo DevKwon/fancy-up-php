@@ -34,6 +34,7 @@ class UrlPathRedirect
 			$this->base_url.= $base_directory;
 	}
 	
+	#@ void
 	# 기본페이지 파일명 설정 확장자 포함
 	# ex) index.php, index.ax, mail.html
 	public function setIndexPage($idxpagename){
@@ -42,15 +43,18 @@ class UrlPathRedirect
 		}
 	}
 	
+	#@ void
 	# member = 'member.php';
 	public function setRedirectPath($k,$path){
 		$this->redirect_urls[$k] = $path;
 	}
 	
+	# return array
 	public function getTracks(){
 		return $this->tracks;
 	}
 	
+	#@ return string
 	public function getUrls($k){
 		$result = false;
 		if($this->redirect_urls[$k])

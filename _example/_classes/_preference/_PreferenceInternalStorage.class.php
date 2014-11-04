@@ -9,21 +9,35 @@ $tmp_args = array(
 
 # 파일 쓰기
 Out::prints_ln('json -> string');
-$preferenceObj = new PreferenceInternalStorage(_ROOT_PATH_.'/'._DATA_.'/test.txt','w');
-$preferenceObj->writeInternalStorage(strval(json_encode($tmp_args)));
+try{
+    $preferenceObj = new PreferenceInternalStorage(_ROOT_PATH_.'/'._DATA_.'/test.txt','w');
+    $preferenceObj->writeInternalStorage(strval(json_encode($tmp_args)));
+}catch(Exception $e){
+}
+
 
 # 파일 읽어오기
 Out::prints_ln('string -> json');
-$preferenceObj = new PreferenceInternalStorage(_ROOT_PATH_.'/'._DATA_.'/test.txt','r');
-Out::prints_r(json_decode($preferenceObj->readInternalStorage()));
+try{
+    $preferenceObj = new PreferenceInternalStorage(_ROOT_PATH_.'/'._DATA_.'/test.txt','r');
+    Out::prints_r(json_decode($preferenceObj->readInternalStorage()));
+}catch(Exception $e){
+}
 
 # 파일 csv 쓰기
 Out::prints_ln('csv 저장');
-$preferenceObj = new PreferenceInternalStorage(_ROOT_PATH_.'/'._DATA_.'/test.csv','w');
-$preferenceObj->writeInternalStorageCSV($tmp_args);
+try{
+    $preferenceObj = new PreferenceInternalStorage(_ROOT_PATH_.'/'._DATA_.'/test.csv','w');
+    $preferenceObj->writeInternalStorageCSV($tmp_args);
+}catch(Exception $e){
+}
 
 # 파일 csv 읽기
 Out::prints_ln('csv -> array');
-$preferenceObj = new PreferenceInternalStorage(_ROOT_PATH_.'/'._DATA_.'/test.csv','r');
-Out::prints_r($preferenceObj->readInternalStorageCSV());
+try{
+    $preferenceObj = new PreferenceInternalStorage(_ROOT_PATH_.'/'._DATA_.'/test.csv','r');
+    Out::prints_r($preferenceObj->readInternalStorageCSV());
+}catch(Exception $e){
+}
+
 ?>

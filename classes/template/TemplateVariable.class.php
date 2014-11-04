@@ -15,5 +15,8 @@ class TemplateVariable extends SplFileInfo{
 	 */
 	public $var_=array();
 	protected $includes=array();
+    protected $file_path_arg=array();
+	protected $import_js=array();
+	protected $import_css=array();
 }
 ?>

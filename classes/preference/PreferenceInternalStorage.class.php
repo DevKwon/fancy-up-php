@@ -12,22 +12,16 @@ class PreferenceInternalStorage extends SplFileObject
 {
     private $file_name = '';
     private $open_mode;
-    
+
     public function __construct ( $file_name, $mode ){
         $this->file_name = $file_name;
         $this->open_mode = $mode;
-            
         parent::__construct($this->file_name, $this->open_mode);
         if (parent::isFile()) {
             $this->file_name = parent::getRealPath();
         }
-        else{
-            if($this->open_mode=='r'){
-                Out::pirnts('is not file :'.$this->file_name);
-            }
-        }
     }
-    
+
     #@ return int
     public function writeInternalStorage($context){
         $written=0;
@@ -36,11 +30,11 @@ class PreferenceInternalStorage extends SplFileObject
         }
     return $written;
     }
-    
+
     #@ return String
     public function readInternalStorage(){
         $contents='';
-        if(parent::isReadable()){
+        if(parent::isFile() && parent::isReadable()){
             if(PHP_VERSION_ID>=505011){
                 $contents = parent::fread(parent::getSize());
             }else{
@@ -51,7 +45,7 @@ class PreferenceInternalStorage extends SplFileObject
         }
     return $contents;
     }
-    
+
     #@ void
     /*
      * $list = array (
@@ -76,7 +70,7 @@ class PreferenceInternalStorage extends SplFileObject
             }
         }
     }
-    
+
     #@ array
     public function readInternalStorageCSV(){
         $args = array();
@@ -85,6 +79,6 @@ class PreferenceInternalStorage extends SplFileObject
         }
     return $args;
     }
-} 
+}
 
 ?>

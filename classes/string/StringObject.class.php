@@ -9,19 +9,19 @@
 
 # purpose : 문자을 변경하거나 더하거나 등 가공하는 역할을 한다.
 class StringObject{
-	private $str; 
-	
+	private $str;
+
 	#@ void
 	public function __construct($s){
 		if(empty($s)) return false;
 		$this->str=$s;
 	}
-	
+
 	# 기존문자에 문자 덮붙이기
 	public function append($s){
 		$this->str .=$s;
 	}
-	
+
 	# @ return String
 	# 문자를 지정된길이부터 특정 문자로 변경하기
 	# 010-4023-7046 => 010-****-7046
@@ -34,7 +34,7 @@ class StringObject{
 		$s[0] = substr($this->str,0,$startNumber);
 		$s[1] = substr($this->str,$startNumber,$endNumber2);
 		$s[2] = substr($this->str,$endNumber);
-		
+
 		# 바꿀문자로 체인징
 		$chgReString = str_repeat($chgString, $endNumber2);
 		$result = $s[0].$chgReString.$s[2];
@@ -58,7 +58,7 @@ class StringObject{
 				else if((Ord($str[$i])<=239)&&(Ord($str[$i])>=224)){$result .=$str[$i].$str[$i+1].$str[$i+2];$i+2;}
 				else if((Ord($str[$i])<=244)&&(Ord($str[$i])>=240)){$result .=$str[$i].$str[$i+1].$str[$i+2].$str[$i+3];$i+3;}
 			}
-		
+
 			# 예외태그 허용
 			$result = strip_tags($result, '<font><strong><strike>');
 			$result = $result.'...';
@@ -76,8 +76,8 @@ class StringObject{
 		);
 		if(is_array($params)){
 			$param=array_merge($param,$params);
-		}		
-		
+		}
+
 		if(!$keywords) return $this->str;
 		$keywords=urldecode($keywords);
 		$keywords=trim($keywords);
@@ -110,7 +110,7 @@ class StringObject{
 		if(iconv("euc-kr","euc-kr",$this->str)==$this->str) return $this->str;
 		else return iconv('utf-8','euc-kr',$this->str);
 	}
-	
+
 	# 변경된 문자 값 돌려주기
 	public function __get($propertyname){
 		return $this->{$propertyname};

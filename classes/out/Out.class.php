@@ -4,7 +4,7 @@
 | @Email	: apmsoft@gmail.com
 | @HomePage	: http://www.apmsoftax.com
 | @Editor	: Eclipse(default)
-| @UPDATE	: 2010-02-04
+| @UPDATE	: 1.5.0
 ----------------------------------------------------------*/
 
 # define('_CHRSET_', 'utf-8');
@@ -45,13 +45,24 @@ final class Out extends OutPane
 	# json 형식으로 출력
 	#args = array('result'=>'1','message'=>'감사합니다');
 	final public static function prints_json($args){
+
 		if(!is_array($args)){
 			die(__FILE__.':'.__CLASS__.' '.Status::getStatusMessage('err_is_array'));
 		}
-		
-		echo json_encode($args);
+
+        //echo json_encode($args);
+        self::prints_compress(json_encode($args));
 		exit;
 	}
+    
+    final public static function prints_compress( $data ) {
+        $supportsGzip = strpos( $_SERVER['HTTP_ACCEPT_ENCODING'], 'gzip' ) !== false;
+        if ( $supportsGzip ) {
+            ob_start("ob_gzhandler");
+        }
+        echo $data;
+        exit;
+    }
 	
 	#@ void
 	# xml 형식으로 출력
@@ -74,15 +85,15 @@ final class Out extends OutPane
 		}
 		$xmldata .= '<message><![CDATA['.$message.']]></message>'."\n";
 		$xmldata .= '</result>';
-		echo $xmldata;
+        self::prints_compress($xmldata);
 		exit;
 	}
 	
 	#@ void
 	# html 형식으로 출력
 	final public static function prints_html($message)
-	{		
-		echo $message;
+	{
+        self::prints_compress($message);
 		exit;
 	}
 }

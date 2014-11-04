@@ -424,6 +424,7 @@ echo <span class="style9">$tpl</span>;    <br />
     <br />
     <br />
     <br />
+    
     <a name="#42">중첩 루프 예제)</a><br />
     <div style="width:500px; background-color:#f4f4f4; padding:7px;">index.php</div>
     <div style="width:500px; padding:7px;">
@@ -485,6 +486,94 @@ echo <span class="style9">$tpl</span>;    <br />
     <br /><br /><br />
     
     <table width="100%" border="0" cellspacing="1" cellpadding="0">
+      <tr>
+        <td><strong><a name="#4">4.1 루프 INDEX / 총가운트 </a></strong></td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td><table width="500" border="0" cellpadding="3" cellspacing="1" bgcolor="#CCCCCC">
+          <tr>
+            <td width="171" bgcolor="#e4e4e4">명령어</td>
+            <td width="314" bgcolor="#e4e4e4">기능</td>
+            <td width="314" bgcolor="#e4e4e4">사용법</td>
+          </tr>
+          <tr>
+            <td bgcolor="#FFFFFF"><span class="style7">list_count</span></td>
+            <td bgcolor="#FFFFFF">루프아이디 + "_count"</td>
+            <td bgcolor="#FFFFFF">{% <strong></strong> 루프아이디 <strong>_count</strong> %}</td>
+          </tr>
+          <tr>
+            <td bgcolor="#FFFFFF"><span class="style7">list.index</span></td>
+            <td bgcolor="#FFFFFF">루프아이디 + ".index"</td>
+            <td bgcolor="#FFFFFF">{% <strong>루프아이디.index</strong> %}</td>
+          </tr>
+        </table></td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td><a href="#1000"><strong>↑ 목차</strong></a></td>
+      </tr>
+    </table>
+    <br />
+    <a name="#41">(루프 index / 갯수 출력 예제)</a><br />
+    <div style="width:500px; background-color:#f4f4f4; padding:7px;">index.php</div>
+    <div style="width:500px; padding:7px;">
+      <p>&lt;?php<br />
+          <br />
+        try{
+        <br />
+  &nbsp;&nbsp;        $tpl = <span class="style9">new</span> Template('./template.html');<br />
+        }catch(Exception $e){<br />
+  &nbsp;&nbsp;  echo $e->getMessage(); <br />
+        }<br />
+        <br />
+  <br />
+  <span class="style16">$loop</span>[] = array();<br />
+        for ( $i=1; $i&lt;=3; $i++ ) {<br />
+  &nbsp;&nbsp;&nbsp;<span class="style16">$loop</span>[] = array(<br />
+   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'<span class="style17">name</span>' =&gt; '홍길동'.$i,<br />
+   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'<span class="style17">address</span>' =&gt; '서울'<br />
+&nbsp;&nbsp;&nbsp;);<br />
+        }<br />
+        <br />
+        <span class="style9">$tpl</span>['<span class="style4">list</span>'] &nbsp;&nbsp;&nbsp;= <span class="style16">$loop</span>;<br />
+          <br />
+          <br />
+        echo <span class="style9">$tpl</span>; <br />
+        <br />
+        ?&gt;</p>
+      </div>
+    <br />
+    <div style="width:500px; background-color:#f4f4f4; padding:7px;">template.html</div>
+    배열갯수 : <span class="style7">{%&nbsp;</span> <span class="style4">list_count</span> <span class="style9">%}</span><br />
+    <div style="width:500px; padding:7px;">      &lt;table&gt;<br />
+      <br />
+        <span class="style7">{%&nbsp;for (</span> <span class="style4">list</span> <span class="style9">) : %}</span><br />
+        <span class="style21">&lt;tr&gt; &lt;td&gt;</span><span class="style17">{%<span class="style4">list</span>.index%}</span><span class="style21">&lt;/td&gt;</span> &nbsp;&nbsp;<span class="style21">&lt;td&gt;</span><span class="style21">{%<span class="style21">list</span>.name%}</span><span class="style21">&lt;/td&gt; &lt;/tr&gt;</span><br />
+          <span class="style9">{% :for %}</span><br />
+          <br />
+      &lt;/table&gt;<br />
+    </div>
+    <div style="width:500px; background-color:#f4f4f4; padding:7px;">&gt;&gt;output</div>
+    배열갯수 : <span class="style4">3</span> <br />
+    <div style="width:500px; padding:7px;">&lt;table&gt;<br />
+      <br />
+        <span class="style21">&lt;tr&gt; &lt;td&gt;</span> index : <span class="style20">0</span> <span class="style21">&lt;/td&gt; &nbsp;&lt;td&gt;</span> <strong>홍길동1</strong> <span class="style21">&lt;/td&gt; &lt;/tr&gt;</span><br />
+        <span class="style21">&lt;tr&gt; &lt;td&gt;</span> index : <span class="style20">1</span><span class="style21">&lt;/td&gt; &nbsp;&lt;td&gt; </span><strong>홍길동2</strong><span class="style21">&lt;/td&gt; &lt;/tr&gt;</span><br />
+          <span class="style21">&lt;tr&gt; &lt;td</span>&gt; index : <span class="style20">2</span><span class="style21"> &lt;/td&gt; &nbsp;&lt;td&gt; </span><strong>홍길동3</strong><span class="style21"> &lt;/td&gt; &lt;/tr&gt;</span><br />
+        <br />
+    &lt;/table&gt;</div>
+    <a href="#1000"><strong>↑ 목차</strong></a>
+    <br />
+    <br />
+    <br />
+    <br />
+    
+    <table width="100%" border="0" cellspacing="1" cellpadding="0">
   <tr>
     <td><strong><a name="#5">5. 인클루드</a></strong></td>
   </tr>
@@ -519,7 +608,10 @@ echo <span class="style9">$tpl</span>;    <br />
             <td bgcolor="#FFFFFF">&lt;? require_once ?&gt;</td>
             <td bgcolor="#FFFFFF">{% <strong>require_once</strong> <strong>&quot;</strong> 파일경로 <strong>&quot;</strong> %}</td>
           </tr>
-        </table></td>
+        </table>
+        
+        
+        </td>
   </tr>
   <tr>
     <td height="60">

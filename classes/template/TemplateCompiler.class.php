@@ -3,7 +3,7 @@
 | @Author	: 김종관
 | @Email	: apmsoft@gmail.com
 | @Editor	: Eclipse(default)
-| version : 1.1
+| version : 1.1.1
 ----------------------------------------------------------*/
 
 # purpose : MVC 패턴목적, 디자인과 프로그램의 분리
@@ -15,29 +15,29 @@ class TemplateCompiler extends TemplateVariable
 	 */
 	private $current_id		= array();
 	private $current_depth	= 0;
-	
+
 	/**
 	* @var defines	: 사용자 선언 define 변수값
 	* @var globals	: 전역변수에 선언된 값
 	*/
 	private $defines		= array();
 	private $globals		= array('_SERVER','_ENV','_COOKIE','_GET','_POST','_FILES','_REQUEST','_SESSION');
-	
+
 	/**
 	 * @var funs : 사용할 수 있는 함수(인클루드 된 사용자 함수 포함) 목록
 	 * @var objs : 사용할 수 있는 클래스(사용자 선언 클래스 포함) 목록
 	 */
-	private $funs	=array('echo','array','empty','for','if','else','isset','unset','eval','include','include_once','require','require_once','if',
-			'str_replace','substr','str_repeat','count','strlen','trim','number_format','strcmp','date','checkDevice');
-	private $objs	=array();
-	
+	protected $funs	=array('echo','array','empty','for','if','else','isset','unset','eval','include','include_once','require','require_once','if',
+			'str_replace','substr','str_repeat','count','strlen','trim','number_format','strcmp','date');
+	protected $objs	=array();
+
 	# compile
 	protected function compile($filename)
 	{
 		$fp=fopen($filename,'rb');
 		$source=fread($fp,filesize($filename));
 		fclose($fp);
-		
+
 		# user가 선언한 define 키:값
 		$const = get_defined_constants(true);
 		if(is_array($const['user'])){
@@ -52,42 +52,71 @@ class TemplateCompiler extends TemplateVariable
 
 		# 사용가능 클래스 : 사용자가 선언한 클래스 포함
 		#$this->objs = array_merge(array_values(spl_classes()),get_declared_classes());
-		
-		# 템플릿 /* */ 주석제거
-		$source = preg_replace("/(\/\*)(.*)(\*\/)/","",$source);
-		# HTML /* */ 주석제거
-		$source = preg_replace("/(\<\!--)(.*)(\--\>)/","",$source);
-		# // 주석제거
-		$source=preg_replace('/(?<!\S)\/\/\s*[^\r\n]*/', '', $source);
-		# 탭제거
-		$source=preg_replace("/\t/","",$source);
+
 		# about utf-8
 		$source = preg_replace('/^\xEF\xBB\xBF/', '', $source);
-		
+
 		# php 태그 전부 삭제여부
 		if ($this->safemode===true){
 			$source=preg_replace("|<\?[^\?\>](.*)[^\?\>]+\?>|U",'',$source);
 		}
-		
-		# 이미지 경로 자동 바꾸기
-		/*if($this->chgimgpath === true){
-			 preg_match_all('@<img\s[^>]*src\s*=\s*(["\'])([^\s>]+?)\1@i',$source,$imgs);
-			 if(is_array($imgs[2])){
-			 	$basename = basename($filename);
-			 	$realpath = str_replace($_SERVER['DOCUMENT_ROOT'],'',realpath($filename));
-			 	$realpath = str_replace($basename,'',$realpath);
-			 	$img_args = self::changeImagePath($imgs[2],$realpath);
-			 	if(is_array($img_args)){
-			 		foreach($imgs[2] as $num => $src){
-			 			if($img_args[$num]){
-			 				$source = str_replace($src,$img_args[$num],$source);
-			 			}
-			 		}
-			 	}
-			 }
-		}*/
 
-		/*$source = str_replace('<%','{%',str_replace('%>','%}',$source));*/
+		# 이미지 경로 자동 바꾸기
+		if($this->chgimgpath === true)
+		{
+			preg_match_all('@<img\s[^>]*src\s*=\s*(["\'])([^\s>]+?)\1@i',$source,$imgs);
+			if(is_array($imgs[2]))
+			{
+				$img_args = self::checkFileDirectoryPath($imgs[2]);
+				if(is_array($img_args)){
+					foreach($imgs[2] as $num => $src){
+						if($img_args[$num]){
+							$source = str_replace($src,$img_args[$num],$source);
+						}
+					}
+				}
+			}
+		}
+
+		# 자바 스크립트/CSS 압축용
+		# js
+		preg_match_all('@<script\s[^>]*src\s*=\s*(["\'])([^\s>]+?)\1@i',$source,$js);
+		if(is_array($js[2]) && count($js[2])>0){
+			$js_args = self::checkFileDirectoryPath($js[2]);
+			if(is_array($js_args))
+			{
+				#경로바꾸기
+				foreach($js[2] as $js_src){
+					if($js_src!=''){
+						#min 파일 저장
+						$min_filename_bool = self::compressJSMinify($js_src);
+						if($min_filename_bool){
+							$source = str_replace($js_src,$min_filename_bool,$source);
+						}
+					}
+				}
+			}
+		}
+
+		#css
+		preg_match_all('@<link\s[^>]*href\s*=\s*(["\'])([^\s>]+?)\1@i',$source,$css);
+		if(is_array($css[2]) && count($css[2])>0){
+			$css_args = self::checkFileDirectoryPath($css[2]);
+			if(is_array($css_args))
+			{
+				#경로바꾸기
+				foreach($css[2] as $css_src){
+					if($css_src!=''){
+						#min 파일 저장
+						$min_filename_bool = self::compressCSSMinify($css_src);
+						if($min_filename_bool){
+							$source = str_replace($css_src,$min_filename_bool,$source);
+						}
+					}
+				}
+			}
+		}
+
 		preg_match_all("|{%[^%}](.*)[^%}]+%}|U",$source,$match,PREG_PATTERN_ORDER);
 		if(is_array($match[0]))
 		{
@@ -107,8 +136,8 @@ class TemplateCompiler extends TemplateVariable
 					if(trim($matchv_arg[$j]))
 					{
 						$callv= trim($matchv_arg[$j]);
-						
-						# {%=%} -> <? echo 
+
+						# {%=%} -> <? echo
 						if(strpos($callv,'=') !==false){
 							if(substr($callv,0,1)=='='){
 								$callv='echo '.substr($callv,1);
@@ -150,7 +179,7 @@ class TemplateCompiler extends TemplateVariable
 									{%:else if(style=='w'):%}	쓰기
 									{%:else if(style=='r'):%}답글
 									{%:if%}
-									
+
 									@함수문예제
 									{%=str_replace("w","",_SERVER.SCRIPT_NAME);%}
 									*/
@@ -164,8 +193,6 @@ class TemplateCompiler extends TemplateVariable
 												$infiles=str_replace('"','',str_replace("'",'',$infiles));
 												$infiles=str_replace(";","",$infiles);
 												$this->includes[] = trim(str_replace($scriptletv,'',trim($infiles)));
-												#$matchvs=str_replace($callv,$callv.';',$matchvs);
-												#$re_matchvs.=(strpos($callv,';') !==false) ? $callv."\n" : $callv.';'."\n";
 												$re_matchvs.=(strpos($callv,';') !==false) ? $callv."\n" : $callv.';'.$this->compression_tag;
 												break;
 											case 'else':
@@ -185,28 +212,24 @@ class TemplateCompiler extends TemplateVariable
 											case 'for':
 												$this->current_id[] = $scriptlet[0][1];
 												$this->current_depth= count($this->current_id);
-												
+
 												if($this->current_depth>1){ // 깊이1부터
 													$parentid=$this->current_id[$this->current_depth-2];
-													#$plustag = '$'.$scriptlet[0][1].' = &$'.$parentid.'[$'.$parentid.'i][\''.$scriptlet[0][1].'\'];'."\n";
-													#$plustag.= '$'.$scriptlet[0][1].'_cnt = count($'.$scriptlet[0][1].');'."\n";
 													$plustag = '$'.$scriptlet[0][1].' = &$'.$parentid.'[$'.$parentid.'i][\''.$scriptlet[0][1].'\'];'.$this->compression_tag;
 													$plustag.= '$'.$scriptlet[0][1].'_cnt = count($'.$scriptlet[0][1].');'.$this->compression_tag;
-                                                    
+
                                                     // 배열 갯수 일반 변수에 자동 저장
                                                     $plustag.='$this->var_[\''.$scriptlet[0][1].'_count\']=$'.$scriptlet[0][1].'_cnt;'.$this->compression_tag;
 												}else{ // 깊이 0일때
-													#$plustag = '$'.$scriptlet[0][1].' = &$this->var_[\''.$scriptlet[0][1].'\'];'."\n";
-													#$plustag.= '$'.$scriptlet[0][1].'_cnt = count($'.$scriptlet[0][1].');'."\n";
 													$plustag = '$'.$scriptlet[0][1].' = &$this->var_[\''.$scriptlet[0][1].'\'];'.$this->compression_tag;
 													$plustag.= '$'.$scriptlet[0][1].'_cnt = count($'.$scriptlet[0][1].');'.$this->compression_tag;
                                                     $plustag.= '$'.$scriptlet[0][1].'_cnt = count($'.$scriptlet[0][1].');'.$this->compression_tag;
-                                                    
+
                                                     // 배열 갯수 일반 변수에 자동 저장
                                                     $plustag.='$this->var_[\''.$scriptlet[0][1].'_count\']=$'.$scriptlet[0][1].'_cnt;'.$this->compression_tag;
 												}
 												$re_matchvs.=str_replace($callv,$plustag.'for($'.$scriptlet[0][1].'i=0; $'.$scriptlet[0][1].'i<$'.$scriptlet[0][1].'_cnt; $'.$scriptlet[0][1].'i++){',$callv);
-                                                
+
                                                 # 순번 자동 index 라는 변수에 등록
                                                 $re_matchvs.='$'.$scriptlet[0][1].'[$'.$scriptlet[0][1].'i][\'index\']=$'.$scriptlet[0][1].'i;'.$this->compression_tag;
 												break;
@@ -226,54 +249,168 @@ class TemplateCompiler extends TemplateVariable
 										}
 										$re_matchvs.= (strpos($callv,';') !==false) ? $callv."\n" : $callv.';';
 									}
-									
+
 									// 변수값 처리
 									else{ $re_matchvs.= 'echo '.self::callback($scriptletv).';'; }
 								}
 						}
 					}
 				}
-    			$matchvs = str_replace($matchvs,$re_matchvs,$matchvs); 
+    			$matchvs = str_replace($matchvs,$re_matchvs,$matchvs);
     			$source = str_replace($match[0][$i],'<?php '.$matchvs.'?>',$source);
-			
-			     #html 줄여백 지우기
-    			if($this->compression){
-        			$source=str_replace("\r\n",'',$source);
-        			$source=str_replace("\n",'',$source);
-                }
 			}
+		}
+
+		#html COMPRESS
+		if($this->compression)
+		{
+			# <!-- -->
+			$source =preg_replace("/<!--(.*?)-->/is", '', $source );
+			# /* */
+			$source = preg_replace("/\/\*(.*?)\*\//is",'',$source);
+			# // 주석제거
+			#$source=preg_replace('/(?<!\S)\/\/(.*)\n/', '', $source);
+			$source=preg_replace('/(?<!\S)\/\/\s*[^\r\n]*/', '', $source);
+			# # 주석제거
+			#$source=preg_replace('/#(.*)\n/', '', $source);
+
+			# 2개 공백
+			$source =preg_replace("/(\s\s+)/is", '', $source );
 		}
 	return $source;
 	}
-	
-	# http://, "/" 시작하는 이미지 경로는 변경하지 않는다
-	/*private function changeImagePath($imgs,$realpath)
+
+	#@ return boolean | string
+	# js 파일 압축 및 min 파일 만들기
+	private function compressJSMinify($filename){
+		if(strpos($filename, '.min.')!==false) return false;
+		if(strpos($filename, '-min')!==false) return false;
+		if(strpos($filename, 'http')!==false) return false;
+
+		$real_file = _ROOT_PATH_.$filename;
+		$file_basename = basename($real_file);
+		$min_file = _ROOT_PATH_.'/'._DATA_.'/min'.str_replace('.js','.min.js',$filename);
+
+		# 디렉토리 만들기
+		$dirObj = new DirInfo(_ROOT_PATH_.'/'._DATA_.'/min'.str_replace('/'.$file_basename, '', $filename));
+		$dirObj->makesDir();
+
+		# 새로 파일 만들것인지 비교
+		if(self::compareFileMTime($real_file, $min_file)){
+			$js_source = file_get_contents($real_file, FILE_USE_INCLUDE_PATH);
+			$jsmin_source = TemplateLibJSMin::minify($js_source);
+
+			self::makeCompressMinifyFile($min_file, $jsmin_source);
+		}
+	return str_replace(_ROOT_PATH_, '', $min_file);
+	}
+
+	#@ return boolean | string
+	# css 파일 압축 및 min 파일 만들기
+	private function compressCSSMinify($filename){
+		if(strpos($filename, '.min.')!==false) return false;
+		if(strpos($filename, '-min')!==false) return false;
+		if(strpos($filename, 'http')!==false) return false;
+
+		$real_file = _ROOT_PATH_.'/'.$filename;
+		$file_basename = basename($real_file);
+		$min_file = _ROOT_PATH_.'/'._DATA_.'/min'.str_replace('.css','.min.css',$filename);
+
+		# 디렉토리 만들기
+		$dirObj = new DirInfo(_ROOT_PATH_.'/'._DATA_.'/min'.str_replace('/'.$file_basename, '', $filename));
+		$dirObj->makesDir();
+
+		# 새로 파일 만들것인지 비교
+		if(self::compareFileMTime($real_file, $min_file)){
+			$css_source = file_get_contents($real_file, FILE_USE_INCLUDE_PATH);
+			$cssminObj = new TemplateLibCSSMin();
+			$cssmin_source = $cssminObj->run($css_source);
+
+			self::makeCompressMinifyFile($min_file, $cssmin_source);
+		}
+	return str_replace(_ROOT_PATH_, '', $min_file);
+	}
+
+	#@ return bool
+	#파일 수정 시간 비교
+	private function compareFileMTime($real_file, $compile_file){
+		$compile_file_mtime = 0;
+		if(!file_exists($real_file)) return false;
+		$real_file_mtime = filemtime($real_file);
+
+		if(file_exists($compile_file)){
+			$compile_file_mtime = @filemtime($compile_file);
+		}
+
+		if($real_file_mtime>$compile_file_mtime){
+			return true;
+		}
+	return false;
+	}
+
+	# 파일 만들기
+	private function makeCompressMinifyFile($filename, $source){
+		if(trim($source) !=''){
+			$fp=@fopen($filename,'w');
+			fwrite($fp,$source);
+			fclose($fp);
+		}
+	}
+
+	# http://, "/" 시작하는 경로는 변경하지 않는다
+	private function checkFileDirectoryPath($dirs)
 	{
-		foreach($imgs as $num => $src){
-			if(strpos($src,'http') ===false){ # http 경로 제외
+		foreach($dirs as $num => $src)
+		{
+		    $dirs[$num] = '';
+
+		    # http 경로 제외
+			if(strpos($src,'http') ===false)
+			{
+			    #"/"로 시작하는 경로 제외
 				$slarc = substr($src,0,1);
-				if($slarc != '/'){ #"/"로 시작하는 경로 제외
-					$path_info	= pathinfo($src);
-					switch(strtolower($path_info['extension'])){
+				if($slarc != '/')
+				{
+					$path_info=pathinfo($src);
+					switch(strtolower($path_info['extension']))
+					{
 						case 'gif':
 						case 'jpg':
 						case 'jpeg':
 						case 'png':
-							$imgsrc = str_replace('../','',str_replace('./','',$path_info['dirname']));
-							$imgpath = $realpath.$imgsrc.'/'.$path_info['basename'];
-							$imgs[$num] = $imgpath;
+						case 'js':
+						case 'css':
+                            $dir_parent_depth = 0;
+                            $real_parent_dir = '/';
+							if(strpos($path_info['dirname'],'/')!==false)
+                            {
+                                $dir_parent_arg = explode('/', $path_info['dirname']);
+                                if($dir_parent_arg[0]=='.'){
+                                    $real_parent_dir = implode('/', $this->file_path_arg).'/';
+                                    $image_name = str_replace('./','',$path_info['dirname']).'/'.$path_info['basename'];
+                                    $real_parent_dir.$image_name;
+                                }else{
+                                    foreach($dir_parent_arg as $dir_parent_name){
+                                        if($dir_parent_name=='..') $dir_parent_depth++;
+                                    }
+                                    if($dir_parent_depth>0){
+                                        $real_parent_dir_arg =array_slice($this->file_path_arg, 0, ($root_dir_depth-$dir_parent_depth));
+                                        $real_parent_dir = implode('/', $real_parent_dir_arg).'/';
+                                        $image_name = str_replace('../','',$path_info['dirname']).'/'.$path_info['basename'];
+                                        #echo $real_parent_dir.$image_name;
+                                    }
+                                }
+                            }
+
+							$dirs[$num] = str_replace($_SERVER['DOCUMENT_ROOT'], '', $real_parent_dir.$image_name);
 							break;
-					}	
-				}else{
-					$imgs[$num] = '';
-				}			
-			}else{
-				$imgs[$num] = '';
+					}
+				}
 			}
 		}
-	return $imgs;
-	}*/
-	
+	return $dirs;
+	}
+
 	# 템플릿 변수 처리
 	private function callback($vars)
 	{
@@ -290,7 +427,7 @@ class TemplateCompiler extends TemplateVariable
 					$result = str_replace($gvalid.'.','',$vars);
 				}
 			}
-			// for/배열 문변수 배열 {%name.required%} -> $args[name][required] = true;
+			// for | 배열 문변수 배열 {%name.required%} -> $args[name][required] = true;
 			else{
 				$queryid = explode('.',$vars);
 				//print_r($queryid);
@@ -329,7 +466,7 @@ class TemplateCompiler extends TemplateVariable
 		}
 	return $result;
 	}
-	
+
 	# 함수,클래스등 다 지우고 변수만 추출하기
 	private function getTplVars($args){
 		$result_args = array();

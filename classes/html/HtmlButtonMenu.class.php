@@ -12,24 +12,24 @@ class HtmlButtonMenu{
 	private $args = array();	# 배열
 	private $chkValue;			# 선택값
 	private $name; 				# name 및 id 명
-	
+
 	# name : 필드명
 	# val : 체크(선택) 값
 	# arg : 배열 값을 한번에 등록
 	public function __construct($name,$val,$arg=''){
 		$this->name = $name;
 		$this->chkValue = $val;
-		
+
 		if(is_array($arg)){
 			$this->args = $this->args + $arg;
 		}
 	}
-	
+
 	# 프라퍼티에 값을 추가하기
 	public function addParams($key, $val){
 		$this->args[$key] = $val;
 	}
-	
+
 	# 배열 하나값 만 추출
 	public function __get($propertyname){
 		try{
@@ -38,7 +38,7 @@ class HtmlButtonMenu{
 			Out::outPrint($e->getMessage());
 		}
 	}
-	
+
 	# @@ 라디오 메뉴
 	# 메뉴 시각적인 정렬을 위해 table 태그를 활용
 	# cellcnt : 가로정렬갯수
@@ -59,7 +59,7 @@ class HtmlButtonMenu{
 			# 값 체크
 			$checked = '';
 			if($k == $this->chkValue){ $checked = 'checked="checked"'; }
-			
+
 			$tagId = $this->name.''.$i;
 			if(!empty($attribute)){
 				$params = str_replace('{%k%}',$k,$attribute);
@@ -75,7 +75,7 @@ class HtmlButtonMenu{
 		//$outHtml.= '</tr></table>';
 	return $outHtml;
 	}
-	
+
 	# @@ 셀렉트 메뉴
 	# ^^^ $attribute : 기타 필요한 태그들을 넣어준다 (onClick="chkvalue('{%v%}');" )
 	# ^^^ {%v%} -> 밸류값,{%k%} -> 키값, {%name%} -> 네임값, {%id%} -> 아이디값
@@ -98,7 +98,7 @@ class HtmlButtonMenu{
 		$outHtml.= '</select>';
 	return $outHtml;
 	}
-	
+
 	# @@ 체크박스 메뉴
 	# 메뉴 시각적인 정렬을 위해 table 태그를 활용
 	# cellcnt : 가로정렬갯수
@@ -117,16 +117,16 @@ class HtmlButtonMenu{
 		if(strpos($this->chkValue,',') !== false){
 			$valargs = explode(',',$this->chkValue);
 		}
-		
+
 		$params = '';
 		$outHtml = ''.//'<table border="0"><tr>';
 		$i=1;
 		foreach($this->args as $k => $v)
-		{			
+		{
 			# 값 체크
 			$checked = '';
 			if(array_search($k, $valargs) !== false){ $checked = 'checked="checked"'; }
-				
+
 			$tagId = $this->name.''.$i;
 			if(!empty($attribute)){
 				$params = str_replace('{%k%}',$k,$attribute);

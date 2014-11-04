@@ -19,8 +19,9 @@ class ImageGDS
 	
 	# 시작
 	public function __construct($filename=null){
-		if(!file_exists($filename) && $filename)
+		if(!file_exists($filename) && $filename) {
 			throw new Exception(__METHOD__.' '.$filename,__LINE__);
+		}
 		
 		$this->filename = $filename;
 	}

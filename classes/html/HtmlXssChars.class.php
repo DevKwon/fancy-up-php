@@ -83,17 +83,34 @@ class HtmlXssChars
 		$email_pattern = "/([ \n]+)([a-z0-9\_\-\.]+)@([a-z0-9\_\-\.]+)/";
 		return preg_replace($email_pattern,"\\1<a href=mailto:\\2@\\3>\\2@\\3</a>", " ".$this->description);
 	}
+	
+	# 자동 링크 걸기 2
+	public function autolink($str, $attributes=array("target"=>"_blank")) {
+		$attrs = '';
+		foreach ($attributes as $attribute => $value) {
+			$attrs .= " {$attribute}=\"{$value}\"";
+		}
 
+		$str = ' ' . $str;
+		$str = preg_replace(
+			'`([^"=\'>])((http|https|ftp)://[^\s<]+[^\s<\.)])`i',
+			'$1<a href="$2"'.$attrs.'>$2</a>',
+			$str
+		);
+		$str = substr($str, 1);
+		
+		return $str;
+	}
+
+	# url 링크에 http가 있는지 확인후 붙여서 리턴해 주기
 	public function setHttpUrl($url)
 	{
 		$url = (!$url) ? trim($url) : $url;
+		if (strpos($url, 'http') ===false) {
+			$url = 'http://'.$url;
+		}
 
-		##	기본적으로 넘어온 URL에 프로토콜을 나타내는 부분이 있는지 확인하여 http:// 를 붙인다.
-		if(!eregi("^(http://|https://|ftp://|telnet://|news://)", $url)) $url = eregi_replace("^",'http://', $url);
-		
-		$url = eregi_replace("http.*://", '', $url);
-		//$url = $type ? eregi_replace("^", "http://", $url) : $url;
- 		return $url = eregi_replace("^", "http://", $url);
+ 		return $url;
 	}
 	
 	public function getContext($mode='XSS')
@@ -104,12 +121,12 @@ class HtmlXssChars
 				$this->description = str_replace("&nbsp;",' ',$this->description);
 				$this->description = str_replace("\r\n","\n",$this->description);
 				$this->description = str_replace("\n","<br />",$this->description);
-				$this->description = self::setAutoLink();
+				$this->description = self::autolink($this->description);//self::setAutoLink();
 				break;
 			case 'XSS':
 				$this->description = str_replace("\r\n","\n",$this->description);
 				$this->description = str_replace("\n","<br />",$this->description);
-				$this->description = self::setAutoLink();
+				$this->description = self::autolink($this->description);
 				$this->description = self::cleanXssTags();
 				#$this->description = htmlspecialchars($this->description);
 				break;
@@ -117,7 +134,7 @@ class HtmlXssChars
 				#$this->description = htmlspecialchars($this->description);
 				$this->description = str_replace("\r\n","\n",$this->description);
 				$this->description = str_replace("\n","<br />",$this->description);
-				$this->description = self::setAutoLink();
+				$this->description = self::autolink($this->description);//self::setAutoLink();
 				break;				
 		}
 	return $this->description;

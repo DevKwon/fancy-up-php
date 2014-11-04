@@ -11,12 +11,12 @@
 class EncryptManager
 {
 	private $encrypt_str = '';
-	
+
 	#@ void
 	public function init($strz){
 		$this->encrypt_str = $strz;
 	}
-	
+
 	#@ return String
 	# md5
 	# enMd5cbf930bbece24547baec219c9089f2eb
@@ -27,11 +27,11 @@ class EncryptManager
 			$result = md5($this->encrypt_str);
 		}catch(Exception $e){
 			throw new ErrorException($e->getMessage(),__LINE__);
-		}		
-		
+		}
+
 	return $result;
 	}
-	
+
 	#@ return String
 	# md5+base64_encdoe
 	# y/kwu+ziRUe67CGckIny6w
@@ -44,7 +44,7 @@ class EncryptManager
 		}
 	return $result;
 	}
-	
+
 	#@ return String
 	# md5+utf8_encode
 	# cbf930bbece24547baec219c9089f2eb
@@ -57,7 +57,7 @@ class EncryptManager
 		}
 	return $result;
 	}
-	
+
 	#@ return String
 	# sha512+base64_encode
 	# ZDE4OTkyNjE1ZjRlMjgyZmZlMDNjODQxNWQ2ZTZiZDhjN2JkZWRjNDg5MWE5NWU1NDA0Yjk4OTk0MjdmZTc0MmE5ZjU2ZWNhZmQwOWFlNTBlZjVhODNiNTU2NDBiNjcwNzlhZDBkYzE3NWFkMDA3OTU5YjU1YWI2OWJkMzBjMzg=
