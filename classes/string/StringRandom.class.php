@@ -52,7 +52,5 @@ class StringRandom {
 		}
 	return $result;
 	}
-
-
 }
 ?>

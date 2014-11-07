@@ -17,13 +17,13 @@ final class Out extends OutPane
 	final public static function prints($str){
 		echo parent::checkSetCharet($str);
 	}
-	
+
 	#@ void
 	# 한줄 \n<br /> 내려서 출력
 	final public static function prints_ln($str){
 		echo parent::checkSetCharet($str."\n<br />");
 	}
-	
+
 	#@ void
 	# 배열을 보기 좋게 출력
 	final public static function prints_array($args){
@@ -40,7 +40,7 @@ final class Out extends OutPane
 			echo '</xmp>';
 		}
 	}
-	
+
 	#@ void
 	# json 형식으로 출력
 	#args = array('result'=>'1','message'=>'감사합니다');
@@ -54,7 +54,7 @@ final class Out extends OutPane
         self::prints_compress(json_encode($args));
 		exit;
 	}
-    
+
     final public static function prints_compress( $data ) {
         $supportsGzip = strpos( $_SERVER['HTTP_ACCEPT_ENCODING'], 'gzip' ) !== false;
         if ( $supportsGzip ) {
@@ -63,7 +63,7 @@ final class Out extends OutPane
         echo $data;
         exit;
     }
-	
+
 	#@ void
 	# xml 형식으로 출력
 	# args = array( // 반드시 데이타 값이 존재해야 한다.
@@ -75,7 +75,7 @@ final class Out extends OutPane
 		if(!is_array($args)){
 			die(__FILE__.':'.__CLASS__.' '.Status::getStatusMessage('err_is_array'));
 		}
-		
+
 		$xmldata = '<?xml version="1.0" encoding="'._CHRSET_.'" ?>'."\n";
 		$xmldata .= '<result>'."\n";
 		if(is_array($args)){
@@ -88,7 +88,7 @@ final class Out extends OutPane
         self::prints_compress($xmldata);
 		exit;
 	}
-	
+
 	#@ void
 	# html 형식으로 출력
 	final public static function prints_html($message)

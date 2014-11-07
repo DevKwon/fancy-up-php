@@ -48,26 +48,7 @@ final class Res
         if(is_array($result))
         {
             $res_root = array();
-            $i=0;
-            foreach($result[0] as $gid=>$nodes)
-            {
-                if(is_object($nodes))
-                {
-                    $depth_attr_count=count($nodes->attributes());
-                    $n=0;
-                    if($depth_attr_count>0){
-                         $depth = &$res_root[$i];
-                        foreach($nodes[$n]->attributes() as $depth_attrk=>$depth_attrv){
-                            $depth[$depth_attrk] = strval($depth_attrv);
-                            $ni++;
-                        }
-                        $depth['value'] = strval($nodes[0]);
-                    }else{
-                        $res_root[$gid] = strval($nodes[0]);
-                    }
-                }
-                $i++;
-              }
+            $res_root =self::xml2Array($result[0],false);
             $this->resource->{$query} =&$res_root;
         }
     }
@@ -88,63 +69,60 @@ final class Res
             {
                 if(is_object($root))
                 {
-                    $i=0;
-                    foreach($root as $gid=>$nodes)
-                    {
-                        $res_root[$i]['gid']=$gid;
-                        if(is_object($nodes))
-                        {
-                            foreach($nodes as $name=>$value)
-                            {
-                                if(count($value)>0){
-                                    $depth = &$res_root[$i][$name];
-                                    $n=0;
-                                    foreach($value as $ck =>$cv)
-                                    {
-                                        # depth attributes
-                                        $depth_attr_count=count($nodes->{$name}->{$ck}[$n]->attributes());
-                                        $depth_array = array();
-                                        if($depth_attr_count>0){
-                                            foreach($nodes->{$name}->{$ck}[$n]->attributes() as $depth_attrk=>$depth_attrv){
-                                                $depth[$ck][$n][$depth_attrk] = strval($depth_attrv);
-                                            }
-                                            $depth[$ck][$n]['value'] = strval($cv);
-
-                                        }else{
-                                            $depth[$ck][$n] = strval($cv);
-                                        }
-                                        $n++;
-
-                                        // attributes
-                                        $attr_count=count($nodes->{$name}->attributes());
-                                        if($attr_count>0)   {
-                                            $attr=&$res_root[$i][$name];
-                                            foreach($nodes->{$name}->attributes() as $attrk=>$attrv){
-                                                $attr[$attrk]=strval($attrv);
-                                            }
-                                        }
-                                    }
-                                }
-                                else{
-                                    $attr_count=count($nodes->{$name}->attributes());
-                                    if($attr_count>0)   {
-                                        $attr=&$res_root[$i][$name];
-                                        foreach($nodes->{$name}->attributes() as $attrk=>$attrv){
-                                            $attr[$attrk]=strval($attrv);
-                                        }
-                                        $attr['value']=strval($value);
-                                    }else{
-                                        $res_root[$i][$name]=strval($value);
-                                    }
-                                }
-                            }
-                        }
-                        $i++;
-                    }
-
+                    $res_root= self::xml2Array($root,$res_root);
                     $this->resource->{$elementName} =&$res_root;
                 }
             }
+        }
+    }
+
+    #@ return array
+    private function xml2Array($xml, $root = true)
+    {
+        if (!$xml->children()) {
+            return (string)$xml;
+        }
+
+        $array = array();
+        foreach ($xml->children() as $element => $node)
+        {
+            $totalElement = count($xml->{$element});
+
+            if (!isset($array[$element])) {
+                $array[$element] = "";
+            }
+
+            // attributes
+            if ($attributes = $node->attributes())
+            {
+                if (!count($node->children())){
+                    $data['value'] = (string)$node;
+                } else {
+                    $data = array_merge($data, self::xml2Array($node, false));
+                }
+                foreach ($attributes as $attr => $value) {
+                    $data[$attr] = (string)$value;
+                }
+
+                if ($totalElement > 1) {
+                    $array[$element][] = $data;
+                } else {
+                    $array[$element] = $data;
+                }
+            // only a value
+            } else {
+                if ($totalElement > 1) {
+                    $array[$element][] = self::xml2Array($node, false);
+                } else {
+                    $array[$element] = self::xml2Array($node, false);
+                }
+            }
+        }
+
+        if ($root) {
+            return array($xml->getName() => $array);
+        } else {
+            return $array;
         }
     }
 

@@ -10,7 +10,7 @@
 # purpose : sqlite 함수를 활용해 확장한다
 # @ define('_CHRSET_','utf-8');
 class OutPane
-{	
+{
 	public function window_location($url,$msg=''){
 		if($msg) $outmsg= 'window.alert("'.$msg.'");'."\n";
 		$outmsg.= 'window.location="'.$url.'";'."\n";
@@ -34,19 +34,19 @@ class OutPane
 		$outmsg.= 'window.close();';
 		self::error_report_prints($outmsg);
 	}
-	
+
 	# 자바스크립트 prompt 창을 통해 데이타 값 받기
 	public function input_prompt($title,$defaultval=''){
 		$title = self::checkSetCharet($title);
 		$defaultval = self::checkSetCharet($defaultval);
-		
+
 		$outmsg = '';
 		$outmsg.= 'var inputmsg;'."\n";
 		$outmsg.= 'inputmsg = prompt("'.$title.'","'.$defaultval.'");'."\n";
 		$outmsg.= 'document.write(inputmsg);'."\n";
 		self::error_report_prints($outmsg);
 	}
-	
+
 	# 문자 출력 값이 utf-8인지 체크 후 변환하기
 	public function checkSetCharet($msg){
 		# 전송된 값을 원하는 문자셋으로 변경
@@ -55,7 +55,7 @@ class OutPane
 		else
 			return iconv('euc-kr',_CHRSET_,$msg);
 	}
-	
+
 	public function error_report_prints($outmsg){
 		$printMsg = '<meta http-equiv="Content-Type" content="text/html; charset='._CHRSET_.'" />'."\n";
 		$printMsg .= '<script type="text/javascript" language="javascript">'."\n";
