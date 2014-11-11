@@ -12,6 +12,7 @@ define('_ROOT_PATH_',$path);
 define('_CHRSET_','utf-8');
 
 # 기본 설정
+define('_LIB_','lib');
 define('_PLUGINS_','plugins');
 define('_COMMON_','common');
 define('_MODULES_','modules');
@@ -36,7 +37,8 @@ include_once _ROOT_PATH_.'/config/config.db.php';
 function __autoload($class_name){
     $tmp_args=explode(' ',preg_replace('/([a-z0-9])([A-Z])/',"$1 $2",$class_name));
     $class_path_name=sprintf("%s/{$class_name}",strtolower($tmp_args[0]));
-    if(!class_exists($class_path_name,false)){
+    if(!class_exists($class_path_name,false))
+    {
         # classes 폴더
         if(file_exists(_ROOT_PATH_.'/classes/'.$class_path_name.'.class.php')!==false){
             include_once _ROOT_PATH_.'/classes/'.$class_path_name.'.class.php';
@@ -45,6 +47,11 @@ function __autoload($class_name){
         else if(file_exists(_ROOT_PATH_.'/'._MODULES_.'/'.$class_path_name.'.class.php')!==false){
             include_once _ROOT_PATH_.'/'._MODULES_.'/'.$class_path_name.'.class.php';
         }
+        # src 폴더
+        else if(file_exists(_ROOT_PATH_.'/'._SRC_.'/'.$class_path_name.'.class.php')!==false){
+            include_once _ROOT_PATH_.'/'._SRC_.'/'.$class_path_name.'.class.php';
+        }
+
         # 기타 만든 클래스 폴더 [첫대문자만 폴더로 지원]
         # ( /my/MyTest.class.php -> MyTest.class.php)
         else if(file_exists(_ROOT_PATH_.'/'.$class_path_name.'.class.php')!==false){
