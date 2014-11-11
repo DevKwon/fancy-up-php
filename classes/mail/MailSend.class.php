@@ -40,21 +40,21 @@ class MailSend
 		# 인코딩 방식
 		if(!empty($encoding))
 			$this->encoding = $encoding;
-			
+
 		# 문자셋
 		if(!empty($chrset))
 			$this->chrset = $chrset;
-			
+
 		# Content-Type
 		if(strcmp($contype,'html') || empty($contype))
 			$this->content_type = 'plain';
-			
+
 		# 헤더 기본설정
 		$this->boundary= 'ax' . '_' . time();
 		$this->headers = 'MIME-Version: 1.0' . "\r\n";
-		
+
 	}
-	
+
 	public function setHeaaderAttach($files){
 		if(is_array($files) && count($files)>0)
 			$this->headers= 'Content-Type: multipart/mixed; '.'boundary="----=_Part_001_'. $this->boundary .'"'. "\r\n";
@@ -79,7 +79,7 @@ class MailSend
 		$this->description.= '------=_Part_000_'.$this->boundary. "\r\n";
 		$this->description.= 'Content-Type: text/'.$this->content_type.'; charset="'. $this->chrset .'"'."\r\n";
 		$this->description.= 'Content-Transfer-Encoding:'. $this->encoding . "\r\n\r\n";
-		
+
 		switch($this->encoding){
 			case 'base64': $message = base64_encode(self::setCharet($message)); break;
 			default : $message = self::setCharet($message); break;
@@ -98,23 +98,23 @@ class MailSend
 			$full_filename	= $files[$i]['fullname'];
 			$filename		= $strObj->isEuckrChg();
 			$filetype		= $files[$i]['file_type'];
-			
+
 			$tmp_contents = '';
 			if($fp = @fopen($full_filename, 'r'))
-			{				
+			{
 				$tmp_contents = fread($fp, filesize($full_filename));
 				$boundary_cnt_num = '1';//($i+1);
-				
+
 				# 파일 첨부 내용 덮입히기
 				$boundary_cnt = sprintf("%03d",$boundary_cnt_num);
 				$this->description.= '------=_Part_'.$boundary_cnt.'_'.$this->boundary. "\r\n";
 				$this->description.= 'Content-Type: '.$filetype.'; name="'.'=?'.$this->chrset.'?B?'.base64_encode($filename).'?='.'"'."\r\n";
 				$this->description.= 'Content-Disposition: inline; filename="'.'=?'.$this->chrset.'?B?'.base64_encode($filename).'?='.'"'."\r\n";
 				$this->description.= 'Content-Transfer-Encoding: base64'."\r\n\r\n";
-		
+
 				$this->description.= chunk_split(base64_encode($tmp_contents));
 				$this->description.= "\r\n";
-				
+
 				$this->description.= '------=_Part_'.$boundary_cnt.'_'.$this->boundary.'--'. "\r\n";
 			}
 		}
@@ -135,7 +135,7 @@ class MailSend
 				}
 			}
 		}
-		
+
 		if($bool)
 		{
 			$this->to_mails[] = array(

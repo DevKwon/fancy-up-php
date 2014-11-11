@@ -11,17 +11,17 @@
 class StringKeyword
 {
 	private $keywords;
-	
+
 	public function __construct($keyword){
 		if(!$keyword) return false;
 		$this->keywords=self::cleanWord($keyword);
 	}
-	
+
 	# 특수문자 제거 및 단어별 배열로 리턴
 	# return array()
 	private function cleanWord($keywords)
 	{
-		$keywords = preg_replace("/[ #\&\+\-%@=\/\\\:;,\.'\"\^`~\_|\!\?\*$#<>()\[\]\{\}]/i",' ',$keywords); 
+		$keywords = preg_replace("/[ #\&\+\-%@=\/\\\:;,\.'\"\^`~\_|\!\?\*$#<>()\[\]\{\}]/i",' ',$keywords);
 		$keywords = preg_replace('/\s\s+/', ' ', $keywords); // 연속된 공백을 하나로 제거
 		$keywords = preg_split("/[\s,]*\\\"([^\\\"]+)\\\"[\s,]*|" . "[\s,]*'([^']+)'[\s,]*|" . "[\s,]+/",$keywords, 0, PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE);
 		return array_unique($keywords);
@@ -59,7 +59,7 @@ class StringKeyword
 		}
 	return $result;
 	}
-	
+
 	#@ return
 	# keywords 값 배열 리턴
 	public function get_keywords(){

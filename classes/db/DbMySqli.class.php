@@ -13,7 +13,7 @@
 class DbMySqli extends mysqli implements DbSwitch,ArrayAccess
 {
 	private $params = array();
-	
+
 	# dsn : host:dbname = localhost:dbname
 	public function __construct($dsn='',$user='',$passwd='',$chrset='utf8')
 	{
@@ -33,7 +33,7 @@ class DbMySqli extends mysqli implements DbSwitch,ArrayAccess
 		$chrset_is = parent::character_set_name();
 		if(strcmp($chrset_is,$chrset)) parent::set_charset($chrset);
 	}
-	
+
 	#@ interface : ArrayAccess
 	# 사용법 : $obj["two"] = "A value";
 	public function offsetSet($offset, $value) {
@@ -45,13 +45,13 @@ class DbMySqli extends mysqli implements DbSwitch,ArrayAccess
 	public function offsetExists($offset) {
 		return isset($this->params[$offset]);
 	}
-	
+
 	#@ interface : ArrayAccess
 	# 사용법 : unset($obj["two"]); -> bool(false)
 	public function offsetUnset($offset) {
 		unset($this->params[$offset]);
 	}
-	
+
 	#@ interface : ArrayAccess
 	# 사용법 : $obj["two"]; -> string(7) "A value"
 	public function offsetGet($offset) {
@@ -68,7 +68,7 @@ class DbMySqli extends mysqli implements DbSwitch,ArrayAccess
 		}
 	return 0;
 	}
-	
+
 	#@ return int
 	# 총게시물 쿼리문에 의한 갯수 추출
 	public function get_total_query($qry){
@@ -154,23 +154,23 @@ class DbMySqli extends mysqli implements DbSwitch,ArrayAccess
 		$fieldk	= substr($fieldk,0,-1);
 		$datav	= substr($datav,0,-1);
 		$this->params = array(); #변수값 초기화
-		
+
 		$query= sprintf("INSERT INTO `%s` (%s) VALUES (%s)",$table,$fieldk,$datav);
 		$this->query($query);
 	}
-    
+
 	# @ interface : DBSwitch
 	public function update($table,$where)
 	{
 		$fieldkv = '';
-		
+
 		if(count($this->params)<1) return false;
 		foreach($this->params as $k => $v){
 			$fieldkv .= sprintf("`%s`='%s',",$k,parent::real_escape_string($v));
 		}
 		$fieldkv = substr($fieldkv,0,-1);
 		$this->params = array(); #변수값 초기화
-		
+
 		$query= sprintf("UPDATE `%s` SET %s WHERE %s",$table,$fieldkv,$where);
 		$this->query($query);
 	}

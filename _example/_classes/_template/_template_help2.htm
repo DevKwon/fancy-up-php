@@ -233,7 +233,7 @@ $name = '퓨전템플릿';<span class="style4"><br />
 		  <span class="style4">{%</span>:else: <span class="style4">%}</span><br />
 		  <span class="style11">나는 누구 일까용</span> <br />
 		  <span class="style4">{%</span> :if <span class="style4">%}</span>
-		 </div>        
+		 </div>
 		</td>
       </tr>
       <tr>
@@ -303,7 +303,7 @@ if (name == '퓨전템플릿') :<br />
 <br />
 }<br />
 <br />
-<br /> 
+<br />
 /**
  <span class="style7">offsetSet</span> */<br />
  <span class="style9">$tpl</span>['<span class="style10">title</span>'] &nbsp;&nbsp;&nbsp;='<span class="style11">퓨전템플릿(Fusion Template)</span>';<br />
@@ -386,7 +386,7 @@ echo <span class="style9">$tpl</span>;    <br />
         }<br />
         <br />
   <br />
-  <span class="style16">$loop</span>[] = array();<br />
+  <span class="style16">$loop</span> = array();<br />
         for ( $i=1; $i&lt;=3; $i++ ) {<br />
   &nbsp;&nbsp;&nbsp;<span class="style16">$loop</span>[] = array(<br />
    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'<span class="style17">num</span>' =&gt; $i,<br />
@@ -424,7 +424,7 @@ echo <span class="style9">$tpl</span>;    <br />
     <br />
     <br />
     <br />
-    
+
     <a name="#42">중첩 루프 예제)</a><br />
     <div style="width:500px; background-color:#f4f4f4; padding:7px;">index.php</div>
     <div style="width:500px; padding:7px;">
@@ -438,15 +438,15 @@ echo <span class="style9">$tpl</span>;    <br />
         }<br />
         <br />
   <br />
-  <span class="style16">$loop</span>[] = array();<br />
-        for ( $i=1; $i&lt;=3; $i++ ) {<br />
+  <span class="style16">$loop</span> = array();<br />
+        for ( $i=0; $i&lt;=3; $i++ ) {<br />
   &nbsp;&nbsp;&nbsp;<span class="style16">$loop</span>[] = array(<br />
    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'<span class="style17">num</span>' =&gt; $i,<br />
    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'<span class="style17">add</span>' =&gt; $i + 1<br />
 &nbsp;&nbsp;&nbsp;);
 <br />
 &nbsp;&nbsp;&nbsp;<span class="style23">$loop2</span> =&amp; <span class="style22">$loop</span>[$i]['<span class="style24">list2</span>'];<br />
-&nbsp;&nbsp;&nbsp;for ( $j=1; $j&lt;=3; $j++ ) {<br />
+&nbsp;&nbsp;&nbsp;for ( $j=0; $j&lt;=3; $j++ ) {<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="style23">$loop2 </span>[] = array(<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'<span class="style25">number</span>' =&gt; $j,<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'<span class="style25">age</span>' =&gt; $j + 7<br />
@@ -484,7 +484,7 @@ echo <span class="style9">$tpl</span>;    <br />
     </div>
     <a href="#1000"><strong>↑ 목차</strong></a>
     <br /><br /><br />
-    
+
     <table width="100%" border="0" cellspacing="1" cellpadding="0">
       <tr>
         <td><strong><a name="#4">4.1 루프 INDEX / 총가운트 </a></strong></td>
@@ -572,7 +572,7 @@ echo <span class="style9">$tpl</span>;    <br />
     <br />
     <br />
     <br />
-    
+
     <table width="100%" border="0" cellspacing="1" cellpadding="0">
   <tr>
     <td><strong><a name="#5">5. 인클루드</a></strong></td>
@@ -609,8 +609,8 @@ echo <span class="style9">$tpl</span>;    <br />
             <td bgcolor="#FFFFFF">{% <strong>require_once</strong> <strong>&quot;</strong> 파일경로 <strong>&quot;</strong> %}</td>
           </tr>
         </table>
-        
-        
+
+
         </td>
   </tr>
   <tr>
@@ -630,7 +630,7 @@ echo <span class="style9">$tpl</span>;    <br />
                 <span class="style7">{%&nbsp;include_once &quot;</span> <span class="style32">./footer.html</span> <span class="style9">&quot; %}</span><br />
         </p>
     </div>
-    
+
     <br />
     <div style="width:500px; background-color:#f4f4f4; padding:7px;"><strong>header</strong>.html</div>
     <div style="width:500px; padding:7px;">
@@ -638,14 +638,14 @@ echo <span class="style9">$tpl</span>;    <br />
         &lt;title&gt; <span class="style10">{%title%}</span> &lt;/title&gt;<br />
         </p>
       </div>
-    
+
     <br />
     <div style="width:500px; background-color:#f4f4f4; padding:7px;"><strong>footer</strong>.html</div>
     <div style="width:500px; padding:7px;"><br />
       copyright (c) <span class="style10">{%copyname%}</span><br />
       &lt;/html&gt;        </div>
-      
-      
+
+
       <br />
       <br />
     <div style="width:500px; background-color:#f4f4f4; padding:7px;">index.php</div>
@@ -669,7 +669,7 @@ echo <span class="style9">$tpl</span>;    <br />
 echo <span class="style9">$tpl</span>;    <br />
     <br />
     ?&gt;</div>
-    
+
     <br />
     <div style="width:500px; background-color:#f4f4f4; padding:7px;">output</div>
     <div style="width:500px; padding:7px;">
@@ -691,14 +691,14 @@ echo <span class="style9">$tpl</span>;    <br />
   </tr>
   <tr>
     <td height="60">인클루드 되어지는 파일 중 ( header.html, footer.html ) 중 수정된 파일이 있다면 그 파일 만<br />
-      다시 컴파일용 파일로 변경하여 
+      다시 컴파일용 파일로 변경하여
       적용합니다.</td>
   </tr>
   <tr>
     <td><a href="#1000"><strong>↑ 목차</strong></a></td>
   </tr>
 </table>
-    
+
     </td>
   </tr>
   <tr>
@@ -716,26 +716,26 @@ echo <span class="style9">$tpl</span>;    <br />
                                 (
                                     [date] => 2012-04-29
                                     [day] => 29
-                                    [moon] => 
-                                    [holiday] => 
-                                    [holiday_title] => 
+                                    [moon] =>
+                                    [holiday] =>
+                                    [holiday_title] =>
                                 )
 
                             [1] => Array
                                 (
                                     [date] => 2012-04-30
                                     [day] => 30
-                                    [moon] => 
-                                    [holiday] => 
-                                    [holiday_title] => 
+                                    [moon] =>
+                                    [holiday] =>
+                                    [holiday_title] =>
                                 )
 
                             [2] => Array
                                 (
                                     [date] => 2012-05-01
                                     [day] => 1
-                                    [moon] => 
-                                    [holiday] => 
+                                    [moon] =>
+                                    [holiday] =>
                                     [holiday_title] => 근로자의날
                                 )
 
@@ -743,27 +743,27 @@ echo <span class="style9">$tpl</span>;    <br />
                                 (
                                     [date] => 2012-05-02
                                     [day] => 2
-                                    [moon] => 
-                                    [holiday] => 
-                                    [holiday_title] => 
+                                    [moon] =>
+                                    [holiday] =>
+                                    [holiday_title] =>
                                 )
 
                             [4] => Array
                                 (
                                     [date] => 2012-05-03
                                     [day] => 3
-                                    [moon] => 
-                                    [holiday] => 
-                                    [holiday_title] => 
+                                    [moon] =>
+                                    [holiday] =>
+                                    [holiday_title] =>
                                 )
 
                             [5] => Array
                                 (
                                     [date] => 2012-05-04
                                     [day] => 4
-                                    [moon] => 
-                                    [holiday] => 
-                                    [holiday_title] => 
+                                    [moon] =>
+                                    [holiday] =>
+                                    [holiday_title] =>
                                 )
 
                             [6] => Array
@@ -783,26 +783,26 @@ echo <span class="style9">$tpl</span>;    <br />
                                 (
                                     [date] => 2012-05-06
                                     [day] => 6
-                                    [moon] => 
-                                    [holiday] => 
-                                    [holiday_title] => 
+                                    [moon] =>
+                                    [holiday] =>
+                                    [holiday_title] =>
                                 )
 
                             [1] => Array
                                 (
                                     [date] => 2012-05-07
                                     [day] => 7
-                                    [moon] => 
-                                    [holiday] => 
-                                    [holiday_title] => 
+                                    [moon] =>
+                                    [holiday] =>
+                                    [holiday_title] =>
                                 )
 
                             [2] => Array
                                 (
                                     [date] => 2012-05-08
                                     [day] => 8
-                                    [moon] => 
-                                    [holiday] => 
+                                    [moon] =>
+                                    [holiday] =>
                                     [holiday_title] => 어버이날
                                 )
 
@@ -810,9 +810,9 @@ echo <span class="style9">$tpl</span>;    <br />
                                 (
                                     [date] => 2012-05-09
                                     [day] => 9
-                                    [moon] => 
-                                    [holiday] => 
-                                    [holiday_title] => 
+                                    [moon] =>
+                                    [holiday] =>
+                                    [holiday_title] =>
                                 )
 
                             [4] => Array
@@ -820,26 +820,26 @@ echo <span class="style9">$tpl</span>;    <br />
                                     [date] => 2012-05-10
                                     [day] => 10
                                     [moon] => 03.20
-                                    [holiday] => 
-                                    [holiday_title] => 
+                                    [holiday] =>
+                                    [holiday_title] =>
                                 )
 
                             [5] => Array
                                 (
                                     [date] => 2012-05-11
                                     [day] => 11
-                                    [moon] => 
-                                    [holiday] => 
-                                    [holiday_title] => 
+                                    [moon] =>
+                                    [holiday] =>
+                                    [holiday_title] =>
                                 )
 
                             [6] => Array
                                 (
                                     [date] => 2012-05-12
                                     [day] => 12
-                                    [moon] => 
-                                    [holiday] => 
-                                    [holiday_title] => 
+                                    [moon] =>
+                                    [holiday] =>
+                                    [holiday_title] =>
                                 )
 
                         )
