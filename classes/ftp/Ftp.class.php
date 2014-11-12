@@ -4,7 +4,7 @@
 | @Email    : apmsoft@gmail.com
 | @HomePage : http://www.apmsoftax.com
 | @Editor   : Eclipse(default)
-| @version  : 0.8
+| @version  : 0.8.1
 ----------------------------------------------------------*/
 
 final class Ftp extends FtpObject
@@ -14,8 +14,13 @@ final class Ftp extends FtpObject
         'inc','ini','asp','aspx','jsp','css','js','xml'
     );
 
-    public function __construct($ftp_url){
-        parent::__construct($ftp_url);
+    public function __construct($ftp_url='',$ftp_user='',$ftp_passwd=''){
+        $_ftp_host   = ($ftp_url)   ? $ftp_url      : _FTP_HOST_;
+        $_ftp_user   = ($ftp_user)  ? $ftp_user     : _FTP_USER_;
+        $_ftp_passwd = ($ftp_passwd)? $ftp_passwd   : _FTP_PASSWD_;
+
+        parent::__construct($_ftp_host);
+        $this->ftp_login($_ftp_user, $_ftp_passwd);
     }
 
     #@ return boolean | stream

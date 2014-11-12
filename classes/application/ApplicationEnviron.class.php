@@ -14,6 +14,7 @@ class ApplicationEnviron
     private $host;
     private $lang;
     private $http_referer =null;
+    private $version = '0.9.8Beta';
 
     public function __construct()
     {
