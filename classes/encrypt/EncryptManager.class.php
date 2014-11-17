@@ -4,7 +4,7 @@
 | @Email	: apmsoft@gmail.com
 | @HomePage	: http://www.apmsoftax.com
 | @Editor	: Eclipse(default)
-| @UPDATE	: 2010-02-04
+| @UPDATE	: 1.0.1
 ----------------------------------------------------------*/
 
 # 문자 암호화하기
@@ -65,6 +65,29 @@ class EncryptManager
 		$result ='';
 		try{
 			$result = base64_encode(hash($hash, $this->encrypt_str));
+		}catch(Exception $e){
+			throw new ErrorException($e->getMessage(),__LINE__);
+		}
+	return $result;
+	}
+
+	#@ return String
+	# 디코드 가능한 인코딩
+	public function encypt_base64_urlencode(){
+		$result = '';
+		try{
+			$result = urlencode(base64_encode($this->encrypt_str));
+		}catch(Exception $e){
+			throw new ErrorException($e->getMessage(),__LINE__);
+		}
+	return $result;
+	}
+
+	#@ return String
+	public function encypt_base64_urldecode(){
+		$result = '';
+		try{
+			$result = base64_decode(urldecode($this->encrypt_str));
 		}catch(Exception $e){
 			throw new ErrorException($e->getMessage(),__LINE__);
 		}

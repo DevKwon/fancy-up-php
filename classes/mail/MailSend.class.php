@@ -57,9 +57,9 @@ class MailSend
 
 	public function setHeaaderAttach($files){
 		if(is_array($files) && count($files)>0)
-			$this->headers= 'Content-Type: multipart/mixed; '.'boundary="----=_Part_001_'. $this->boundary .'"'. "\r\n";
+			$this->headers= 'Content-Type: multipart/alternative; '.'boundary="----=_Part_001_'. $this->boundary .'"'. "\r\n";
 		else
-			$this->headers.= 'Content-Type: multipart/mixed; '.'boundary="----=_Part_000_'. $this->boundary .'"'. "\r\n";
+			$this->headers.= 'Content-Type: multipart/alternative; '.'boundary="----=_Part_000_'. $this->boundary .'"'. "\r\n";
 	}
 
 	# 보내는 사람 이메일 주소 및 성명

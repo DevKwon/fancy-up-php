@@ -11,10 +11,10 @@ final class Ftp extends FtpObject
 {
     private $ascii_type = array(
         'txt','htm','html','phtml','php','php3','php4',
-        'inc','ini','asp','aspx','jsp','css','js','xml'
+        'inc','ini','asp','aspx','jsp','css','js'
     );
 
-    public function __construct($ftp_url='',$ftp_user='',$ftp_passwd=''){
+    public function __construct($ftp_url='',$ftp_user='', $ftp_passwd=''){
         $_ftp_host   = ($ftp_url)   ? $ftp_url      : _FTP_HOST_;
         $_ftp_user   = ($ftp_user)  ? $ftp_user     : _FTP_USER_;
         $_ftp_passwd = ($ftp_passwd)? $ftp_passwd   : _FTP_PASSWD_;
@@ -23,32 +23,15 @@ final class Ftp extends FtpObject
         $this->ftp_login($_ftp_user, $_ftp_passwd);
     }
 
-    #@ return boolean | stream
-    #파일 업로드
-    public function ftp_upload($filename)
-    {
-        $result = false;
-        if(!self::isExists($filename)){
-            return $result;
-        }
-
-        $fp = fopen($filename, 'r');
-        if($this->ftp_fput($filename, $fp, self::chk_open_mode($filename))){
-            $result=true;
-        }
-        fclose($fp);
-    return $result;
-    }
-
     #@ return boolean | string
     # 파일 내용 읽어 오기
-    public function open_file_read($filename)
+    public function open_file_read($tmpfile, $remote_file)
     {
-        if(!self::isExists($filename)){
+        if(!$this->ftp_get($tmpfile, $remote_file, self::chk_open_mode($remote_file)))
             return false;
-        }
-        $fp = fopen($filename, 'r');
-        $contents = fread($fp, filesize($filename));
+
+        $fp=fopen($tmpfile,'r');
+        $contents = fread($fp, filesize($tmpfile));
         fclose($fp);
 
     return $contents;
@@ -56,19 +39,22 @@ final class Ftp extends FtpObject
 
     #@ return boolean
     #
-    public function open_file_write($filename, $contents)
+    public function open_file_write($tmpfile, $remote_file, $contents)
     {
-        if(!self::isExists($filename)){
+        if(!self::isExists($tmpfile)){
             return false;
         }
 
         if(empty($contents))
             return false;
 
-        $fp = fopen($filename, 'w');
+        $fp = fopen($tmpfile, 'w');
         fwrite($fp, $contents);
         fclose($fp);
+        if(!$this->ftp_put($remote_file, $tmpfile, self::chk_open_mode($remote_file)))
+            return false;
 
+        @unlink($tmpfile);
     return true;
     }
 

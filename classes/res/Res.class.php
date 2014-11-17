@@ -4,7 +4,7 @@
 | @Email	: apmsoft@gmail.com
 | @HomePage	: http://www.apmsoftax.com
 | @Editor	: Eclipse(default)
-| @UPDATE	: 1.1.1
+| @UPDATE	: 1.1.2
 ----------------------------------------------------------*/
 final class Res
 {
@@ -21,9 +21,9 @@ final class Res
         }
 
         # 기본 환경설정 xml
-        $string_obj=new XmlSimple(_ROOT_PATH_.'/'._VALUES_.'/strings_'.$this->nation.'.xml');
-        $string_xml=$string_obj->fetch($string_obj->query('resources'));
-        $this->strings=&$string_xml[0];
+        $string_obj=new XmlSimpleXMLElementPlus(_ROOT_PATH_.'/'._VALUES_.'/strings_'.$this->nation.'.xml', null, true);
+        $string_xml = $string_obj->xpath('resources');
+        $this->strings= (array)$string_xml[0];
 
         # resource 객체화 시키기
         $this->resource = new ArrayObject(array(), ArrayObject::STD_PROP_LIST);
@@ -39,12 +39,13 @@ final class Res
     # echo $res->resource->tables['member'];
     public function setResource($filename, $query)
     {
-        if(!$query)
-            Out::prints_json(array('result'=>'false', 'msg'=>'empty : $query'));
+        if(!$query) throw new ErrorException(__CLASS__.' :: '.__LINE__.' '.$query.' is null');
 
         # xml 파일
-        $resource_obj=new XmlSimple($filename);
-        $result = $resource_obj->query($query);
+        $resource_obj=new XmlSimpleXMLElementPlus($filename, null, true);
+        if($resource_obj->isNullChild($query)) return false;
+
+        $result = $resource_obj->xpath($query);
         if(is_array($result))
         {
             $res_root = array();
@@ -61,18 +62,12 @@ final class Res
     public function setResourceRoot($filename, $elementName)
     {
         # xml 파일
-        $resource_obj=new XmlSimple($filename);
+        $resource_obj=new XmlSimpleXMLElementPlus($filename, null, true);
         if(is_object($resource_obj))
         {
             $res_root = array();
-            foreach($resource_obj as $root)
-            {
-                if(is_object($root))
-                {
-                    $res_root= self::xml2Array($root,$res_root);
-                    $this->resource->{$elementName} =&$res_root;
-                }
-            }
+            $res_root= self::xml2Array($resource_obj,$res_root);
+            $this->resource->{$elementName} =&$res_root;
         }
     }
 

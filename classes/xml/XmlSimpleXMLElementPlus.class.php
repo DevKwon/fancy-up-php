@@ -15,7 +15,7 @@ class XmlSimpleXMLElementPlus extends SimpleXMLElement
      */
     public function addCData($elemnetName, $contents)
     {
-        if(selft::isNullChild($elemnetName)){
+        if(self::isNullChild($elemnetName)){
             $this->addChild($elemnetName);
         }
 
@@ -32,23 +32,11 @@ class XmlSimpleXMLElementPlus extends SimpleXMLElement
      * @param [type] $contents    [description]
      */
     public function addChildPlus($elemnetName, $contents){
-        if(selft::isNullChild($elemnetName)){
+        if(self::isNullChild($elemnetName)){
             $this->addChild($elemnetName);
         }
 
         $this->{$elemnetName} = $contents;
-    }
-
-    /**
-     * @void
-     * removeChild
-     * @param  [type] $elemnetName [description]
-     * @return [type]              [description]
-     */
-    public function removeChildPlus($elemnetName){
-        if(!selft::isNullChild($elemnetName)){
-            unset($this->{$elemnetName}[0]);
-        }
     }
 
     /**
@@ -58,9 +46,11 @@ class XmlSimpleXMLElementPlus extends SimpleXMLElement
      * @return boolean              [description]
      */
     public function isNullChild($elemnetName){
+        $result = false;
         if(is_null($this->{$elemnetName}[0]))
-            return true;
-    return false;
+            $result = true;
+
+    return $result;
     }
 }
 ?>

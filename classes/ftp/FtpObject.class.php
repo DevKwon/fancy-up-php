@@ -8,7 +8,7 @@
 ----------------------------------------------------------*/
 class FtpObject
 {
-    private $conn;
+    public $conn;
 
     public function __construct($ftp_url){
         $this->conn = ftp_connect($ftp_url);
