@@ -16,28 +16,22 @@ $content = '팝업 테스트중.. (신경 끄삼)<img src="/_data/files/popup/20
     </ul>
 </div>';
 
-$doc = phpQuery::newDocumentHTML($content);
+$phpQ = phpQuery::newDocumentHTML($content);
 //var_dump($phpQ);
 
 # 텍스트만 추출된 데이터
 Out::prints_ln('텍스트만 추출 /================');
-Out::prints_ln($doc->document->textContent);
+Out::prints_ln($phpQ->document->textContent);
 
 # image /=================
 Out::prints_ln( '이미지 태그 /================' );
-
-
 $imgs= pq('img');
 foreach ($imgs as $img) {
-  Out::prints_ln( pq($img)->attr('src') );
-  Out::prints_ln( pq($img)->attr('width') );
+    Out::prints_ln( pq($img)->attr('src') );
+	Out::prints_ln( pq($img)->attr('width') );
 }
 
-# 내용에서 'test.jpg'를 포함한 이미지 태그 삭제
-$doc->find("img[src*='/_data/files/popup/2014/10/m/2014_10_0_08400100_1413958137.jpg']")->remove();
-Out::prints_ln( '이미지 태그 삭제 후 /================' );
-Out::prints_ln( $doc->html() );
-
+Out::prints_ln( pq('document')->textContent );
 
 # a /===========================
 Out::prints_ln( ' A 태그 /=====================' );
