@@ -10,16 +10,16 @@
 # purpose : 디렉토리 관련
 class DirInfo
 {
-	private $dirpath;
+	protected $dirpath;
 	const permission	= 0707;
 
 	public function __construct($dir){
 		$this->dirpath = $dir;
 	}
-	
+
 	# 복수 폴더 만들기
 	public function makesDir()
-	{				
+	{
 		if(strpos($this->dirpath, '/') !==false)
 		{
 			$dir_args = explode('/', str_replace(_ROOT_PATH_.'/','',$this->dirpath));
@@ -31,7 +31,7 @@ class DirInfo
 						throw new ErrorException(Status::getStatusMessage('404'));
 				}
 			}
-		}			
+		}
 	}
 
 	#@ return boolean
@@ -47,7 +47,7 @@ class DirInfo
 		}
 	return $result;
 	}
-	
+
 	# 디렉토리인지 확인
 	public function isDir($dir){
 		if(!is_dir($dir)) return false;

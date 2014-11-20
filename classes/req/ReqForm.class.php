@@ -14,16 +14,17 @@ class ReqForm
 	public function chkNull($filed,$value,$required){
 		$isChceker = new ReqStrChecker($value);
 		if($required){
-			if(!$isChceker->isNull())
+			if($isChceker->isNull()) {
 				self::error_report($filed, $this->strings[$filed].' '.$this->strings['err_null']);
-		}
+		    }
+        }
 	}
 
     # 아이디체크
     public function chkUserid($filed,$value,$required){
         $isChceker = new ReqStrChecker($value);
         if($required){
-            if(!$isChceker->isNull())
+            if($isChceker->isNull())
                 self::error_report($filed, $this->strings[$filed].' '.$this->strings['err_null']);
         }
 
@@ -43,7 +44,7 @@ class ReqForm
 	public function chkPasswd($filed,$value,$required){
 		$isChceker = new ReqStrChecker($value);
 		if($required){
-			if(!$isChceker->isNull())
+			if($isChceker->isNull())
 				self::error_report($filed, $this->strings[$filed].' '.$this->strings['err_null']);
 		}
 
@@ -63,7 +64,7 @@ class ReqForm
 	public function chkName($filed,$value,$required){
 		$isChceker = new ReqStrChecker($value);
 		if($required){
-			if(!$isChceker->isNull()) self::error_report($filed, $this->strings[$filed].' '.$this->strings['err_null']);
+			if($isChceker->isNull()) self::error_report($filed, $this->strings[$filed].' '.$this->strings['err_null']);
 		}
 
 		if($value){
@@ -78,7 +79,7 @@ class ReqForm
 	public function chkPhone($filed,$value,$required){
 		$isChceker = new ReqStrChecker($value);
 		if($required){
-			if(!$isChceker->isNull()) self::error_report($filed, $this->strings[$filed].' '.$this->strings['err_null']);
+			if($isChceker->isNull()) self::error_report($filed, $this->strings[$filed].' '.$this->strings['err_null']);
 		}
 
 		if($value){
@@ -97,7 +98,7 @@ class ReqForm
 	public function chkNumber($filed,$value,$required){
 		$isChceker = new ReqStrChecker($value);
 		if($required){
-			if(!$isChceker->isNull()) self::error_report($filed, $this->strings[$filed].' '.$this->strings['err_null']);
+			if($isChceker->isNull()) self::error_report($filed, $this->strings[$filed].' '.$this->strings['err_null']);
 		}
 
 		if($value){
@@ -113,7 +114,7 @@ class ReqForm
 		$value =filter_var($value,FILTER_SANITIZE_EMAIL);
 		$isChceker = new ReqStrChecker($value);
 		if($required){
-			if(!$isChceker->isNull())
+			if($isChceker->isNull())
 				self::error_report($filed, $this->strings[$filed].' '.$this->strings['err_null']);
 		}
 
@@ -134,7 +135,7 @@ class ReqForm
 		$value =filter_var($value,FILTER_SANITIZE_URL);
 		$isChceker = new ReqStrChecker($value);
 		if($required){
-			if(!$isChceker->isNull())
+			if($isChceker->isNull())
 				self::error_report($filed, $this->strings[$filed].' '.$this->strings['err_null']);
 		}
 
@@ -146,12 +147,9 @@ class ReqForm
 
     # 날짜
     public function chkDateFormat($filed,$value,$required){
-
-// Out::prints_json(array('result'=>'false','msg'=>'called chkDateFormat()..'));
-
         $isChceker = new ReqStrChecker($value);
         if($required){
-            if(!$isChceker->isNull()) self::error_report($filed, $this->strings[$filed].' '.$this->strings['err_null']);
+            if($isChceker->isNull()) self::error_report($filed, $this->strings[$filed].' '.$this->strings['err_null']);
         }
 
         if($value){

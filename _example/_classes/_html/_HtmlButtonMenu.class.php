@@ -25,7 +25,7 @@ Out::prints_ln($htmlMenuObj->select());
 Out::prints_ln('');
 
 
-# 샘플 2 [셀렉트메뉴]
+# 샘플 3 [셀렉트메뉴]
 Out::prints_ln('셀렉트 메뉴 샘플2 : 이벤트(onChange) /======================');
 $sel_args = array(
     'level_0' => '비회원',
@@ -36,4 +36,16 @@ $sel_args = array(
 $htmlMenuObj = new HtmlButtonMenu('select_test2','level_2', $sel_args);
 Out::prints_ln($htmlMenuObj->select('onChange="alert(\'이벤트설정 할 수 있어요\');"; return false; style="border:0px;"'));
 Out::prints_ln('');
+
+# 샘플 4 [라디오]
+Out::prints_ln('라디오버튼 샘플 /======================');
+$htmlMenuObj = new HtmlButtonMenu('sel_'.$key, 'sel_'.$key);
+$htmlMenuObj->addParams('list', '일반');
+$htmlMenuObj->addParams('news', '뉴스(웹진)');
+$htmlMenuObj->addParams('faq', '자주묻는질문');
+$htmlMenuObj->addParams('qna', '묻고답하기');
+$htmlMenuObj->addParams('gallery', '갤러리');
+Out::prints_ln($htmlMenuObj->radio(5,''));
+Out::prints_ln('');
+
 ?>

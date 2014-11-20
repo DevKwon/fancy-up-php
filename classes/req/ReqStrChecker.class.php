@@ -22,11 +22,11 @@ class ReqStrChecker{
 	}
 
 	#@ return boolean
-	# null 값인지 체크한다 [ 널값이면 : false / 아니면 : true ]
+	# null 값인지 체크한다 [ 널값이면 : true / 아니면 : false ]
 	public function isNull(){
-		$result = true;
-		$asciiNumber = Ord($this->str);
-		if(empty($asciiNumber)) return false;
+		$result = false;
+		$strv = trim($this->str);
+		if(is_null($strv) || $strv=='') return true;
 	return $result;
 	}
 
