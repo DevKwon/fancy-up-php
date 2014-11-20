@@ -15,8 +15,8 @@ class ReqStrChecker{
 	public $cellphone_args = array('010','011','016','017','018','019');
 
 	public function __construct($s){
-		if(!empty($s)){
-			$this->str = trim($s);
+		$this->str = trim($s);
+		if(!self::isNull()){
 			$this->len = strlen($s);
 		}
 	}
@@ -25,8 +25,9 @@ class ReqStrChecker{
 	# null 값인지 체크한다 [ 널값이면 : true / 아니면 : false ]
 	public function isNull(){
 		$result = false;
-		$strv = trim($this->str);
-		if(is_null($strv) || $strv=='') return true;
+		if(is_null($this->str) || $this->str==''){
+			$result = true;
+		}
 	return $result;
 	}
 
