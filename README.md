@@ -15,5 +15,8 @@ fancy-up-php
 <b>/src     :</b> php 실 프로그램밍 폴더<br />
 
 ===============================
-@ PHP Version 5.3+
+@ 환경
 ===============================
+[] PHP Version 5.3+
+[] Standard PHP Library (SPL) 
+[] ftp : --enable-ftp (관리자 옵션 설정에 사용)
