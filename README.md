@@ -13,3 +13,7 @@ fancy-up-php
 <b>/function:</b> 함수 모음<br />
 <b>/res     :</b> 리소스(xml, html, js, css) 폴더<br />
 <b>/src     :</b> php 실 프로그램밍 폴더<br />
+
+===============================
+@ PHP Version 5.3+
+===============================
