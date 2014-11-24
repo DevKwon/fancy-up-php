@@ -10,7 +10,6 @@
 # 디렉토리 목록 및 디렉토리에 해달하는 파일 가져오기
 class DirObject extends DirInfo{
     public function __construct($dir){
-        echo $dir;
         parent::__construct($dir);
     }
 

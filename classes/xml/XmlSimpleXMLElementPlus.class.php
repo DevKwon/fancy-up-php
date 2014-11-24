@@ -13,14 +13,14 @@ class XmlSimpleXMLElementPlus extends SimpleXMLElement
      * CData 추가
      * @param [type] $cdata_text [description]
      */
-    public function addCData($elemnetName, $contents)
+    public function addCData($elementName, $contents)
     {
-        if(self::isNullChild($elemnetName)){
-            $this->addChild($elemnetName);
+        if(self::isNullChild($elementName)){
+            $this->addChild($elementName);
         }
 
-        $this->{$elemnetName} = '';
-        $node = dom_import_simplexml($this->{$elemnetName});
+        $this->{$elementName} = '';
+        $node = dom_import_simplexml($this->{$elementName});
         $no   = $node->ownerDocument;
         $node->appendChild($no->createCDATASection($contents));
     }
@@ -28,29 +28,31 @@ class XmlSimpleXMLElementPlus extends SimpleXMLElement
     /**
      * @void
      * addChild
-     * @param [type] $elemnetName [description]
+     * @param [type] $elementName [description]
      * @param [type] $contents    [description]
      */
-    public function addChildPlus($elemnetName, $contents){
-        if(self::isNullChild($elemnetName)){
-            $this->addChild($elemnetName);
+    public function addChildPlus($elementName, $contents){
+        if(self::isNullChild($elementName)) {
+            $this->addChild($elementName);
         }
 
-        $this->{$elemnetName} = $contents;
+        $this->{$elementName} = $contents;
+
+        return $this->{$elementName};
     }
 
     /**
      * @return boolean
      * child Element Node 가 있는지 체크
-     * @param  [type]  $elemnetName [description]
+     * @param  [type]  $elementName [description]
      * @return boolean              [description]
      */
-    public function isNullChild($elemnetName){
+    public function isNullChild($elementName){
         $result = false;
-        if(is_null($this->{$elemnetName}[0]))
+        if(is_null($this->{$elementName}[0]))
             $result = true;
 
-    return $result;
+        return $result;
     }
 }
 ?>

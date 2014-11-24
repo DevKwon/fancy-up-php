@@ -4,7 +4,7 @@
 | @Email	: apmsoft@gmail.com
 | @HomePage	: http://www.apmsoftax.com
 | @Editor	: Eclipse(default)
-| @UPDATE	: 1.1.2
+| @UPDATE	: 1.1.3
 ----------------------------------------------------------*/
 final class Res
 {
@@ -22,8 +22,8 @@ final class Res
 
         # 기본 환경설정 xml
         $string_obj=new XmlSimpleXMLElementPlus(_ROOT_PATH_.'/'._VALUES_.'/strings_'.$this->nation.'.xml', null, true);
-        $string_xml = $string_obj->xpath('resources');
-        $this->strings= (array)$string_xml[0];
+        $string_xml = simplexml_load_string((string)$string_obj->asXML(), null, LIBXML_NOCDATA);
+        $this->strings= (array)$string_xml->resources;
 
         # resource 객체화 시키기
         $this->resource = new ArrayObject(array(), ArrayObject::STD_PROP_LIST);
