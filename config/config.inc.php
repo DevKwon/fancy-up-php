@@ -3,7 +3,7 @@
 | @Author	: 김종관
 | @Email	: apmsoft@gmail.com
 | @Editor	: Eclipse(default)
-| @UPDATE	: 12-06-30
+| @UPDATE	: 14-11-27
 ----------------------------------------------------------*/
 session_start();
 
@@ -56,6 +56,19 @@ function __autoload($class_name){
         # ( /my/MyTest.class.php -> MyTest.class.php)
         else if(file_exists(_ROOT_PATH_.'/'.$class_path_name.'.class.php')!==false){
             include_once _ROOT_PATH_.'/'.$class_path_name.'.class.php';
+        }
+    }
+}
+
+# 함수 자동 인클루드
+$__autoload_helper_funs = array(
+    '_reqstrchecker'
+);
+if(is_array($__autoload_helper_funs)){
+    foreach($__autoload_helper_funs as $fun_name){
+        $tmp_fun_filename = _ROOT_PATH_.'/function/'.$fun_name.'.helper.php';
+        if(file_exists($tmp_fun_filename)!==false){
+            include_once $tmp_fun_filename;
         }
     }
 }

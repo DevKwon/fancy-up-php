@@ -39,5 +39,5 @@ $tpl['strings'] = $res->strings;
 $tpl->compile_dir =_ROOT_PATH_.'/'._TPL_.'/'.$tpl_dir;
 $tpl->compile = true;
 $tpl->compression = false;
-echo $tpl->display();
+$tpl->display();
 ?>

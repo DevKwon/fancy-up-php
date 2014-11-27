@@ -67,8 +67,8 @@ class HtmlButtonMenu{
 				$params = str_replace('{%name%}',$this->name,$params);
 				$params = str_replace('{%id%}',$tagId,$params);
 			}
-			$outHtml.= '<input type="radio" name="'.$this->name.'" value="'.$k.'" id="'.$tagId.'" '.$checked.' '.$params.' />';
-			$outHtml.= '<label for="'.$tagId.'">'.$v.'</label>';
+			$outHtml.= '<input type="radio" name="'.$this->name.'" value="'.$k.'" id="'.$tagId.'" '.$checked.' '.$params.'   style="padding-top: 10px;"/>';
+			$outHtml.= '<label for="'.$tagId.'" style="padding-right: 10px; padding-left: 5px;">'.$v.'</label>';
 			$outHtml.= ($i % $cellcnt== 0) ? '<br />'."\n" : '';
 		$i++;
 		}

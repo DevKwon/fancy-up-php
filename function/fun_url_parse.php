@@ -18,6 +18,6 @@ function url_query_parse_array($_query_string)
 			$_params[$parseUrls[0]] =$parseUrls[1];
 		}
 	}
-return $_params;
+	return $_params;
 }
 ?>
