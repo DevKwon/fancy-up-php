@@ -13,14 +13,14 @@ class DateTimes extends DateTime{
 	private $datetimev;
 	private $wkr_args = array('Mon'=>'월','Tue'=>'화','Wed'=>'수','Thu'=>'목','Fri'=>'금');
 	private $mkr_args = array('Jan'=>1,'Feb'=>2,'Mar'=>3,'Apr'=>4,'May'=>5,'Jun'=>6,'Jul'=>7,'Aug'=>8,'Sep'=>9,'Oct'=>10,'Nov'=>11,'Dec'=>12);
-	
+
 	#@ void
 	# times -> Y-m-d H:i:s
 	public function __construct($times){
 		parent::__construct($times);
 		$this->datetimev = $times;
 	}
-	
+
 	#@ void
 	# 날짜가 유효한지 체크한다
 	public function chkdate(){
@@ -59,7 +59,7 @@ class DateTimes extends DateTime{
 		$result = (int)($today_times/$oneday_timenum);
 	return $result;
 	}
-	
+
 	#@ return int
 	# 오늘 날자를 기준으로 입력된 날짜가 며칠이나 지났는지 (1일지남, 2일지남)
 	public function uDayCount()
@@ -68,11 +68,11 @@ class DateTimes extends DateTime{
 		$oneday_timenum = 86400;
 		$startdate_tmpdate = $this->format('U');
 		$today_times= mktime(0,0,0,date(m),date(d),date(Y)) - $startdate_tmpdate;
-		
+
 		$result = (int)($today_times/$oneday_timenum);
 	return $result;
 	}
-	
+
 	#@ return date (Y-m-d)
 	## 어떠한 특정날짜에서로부터 며칠(3일)뒤의 날짜가 언제인지 알아낸다
 	# int forday
@@ -81,7 +81,7 @@ class DateTimes extends DateTime{
 		$datetimez	= $this->format('U');
 		$regs= $datetimez + ($forday*86400);
 		$result=date('Y-m-d', $regs);
-		
+
 	return $result;
 	}
 
@@ -95,7 +95,7 @@ class DateTimes extends DateTime{
 
 	return $result;
 	}
-	
+
 	#@ return String
 	## 24시간 이전 값은 시간/분/초 단위로 표기
 	public function get24pPretime()
@@ -104,7 +104,7 @@ class DateTimes extends DateTime{
 		$datetimez = $this->format('U');
 		$timestamp = (time() - $datetimez);
 		$time = intVal($timestamp / 60);
-		
+
 		if ($time<60){# 분
 			$result = $time.'분전';
 		}else{# 시간 : 분

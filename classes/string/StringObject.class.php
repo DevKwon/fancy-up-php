@@ -95,6 +95,11 @@ class StringObject{
 	return $this->str;
 	}
 
+	# 슬래쉬, HTML 태그 제거
+	public function remove_html_specialchars(){
+		$this->str=htmlspecialchars(stripslashes(strip_tags($this->str)));
+	}
+
 	#@ return String
 	# utf-8 문자인지 체크 /--
 	public function isUTF8Chg()

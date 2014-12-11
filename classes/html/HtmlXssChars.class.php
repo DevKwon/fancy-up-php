@@ -12,27 +12,27 @@ class HtmlXssChars
 {
 	private $description;
 	private $allow_tags = array();
-	
+
 	public function __construct($description){
 		$this->description = $description;
 	}
-	
+
 	# 허용 태그 설정
 	public function setAllowTags($value){
 		if(is_array($value)) $this->allow_tags = array_merge($this->allow_tags,$value);
 		else $this->allow_tags[] = $value;
 	}
-	
+
 	# strip_tags
 	public function cleanTags(){
 		return strip_tags($this->description,implode('', $this->allow_tags));
 	}
-	
+
 	# Xss 태그 처리
 	public function cleanXssTags(){
 		$xss_tags = array(
 			'@<script[^>]*?>.*?</script>@si',
-			'@<style[^>]*?>.*?</style>@siU',	
+			'@<style[^>]*?>.*?</style>@siU',
 			'@<iframe[^>]*?>.*?</iframe>@si',
 			'@<meta[^>]*?>.*?>@si',
 			'@<form[^>]*?>.*?>@si',
@@ -44,7 +44,7 @@ class HtmlXssChars
 			'/livescript:[^\"\']*/si',
 			'@<![\s\S]*?--[ \t\n\r]*>@'// multi-line comments including CDATA
 		);
-		
+
 		$event_tags = array(
 			'dynsrc','datasrc','frameset','ilayer','layer','applet',
 			'onabort','onactivate','onafterprint','onsubmit','onunload',
@@ -63,7 +63,7 @@ class HtmlXssChars
 			'onresizeend','onresizestart','onrowexit','onrowsdelete','onrowsinserted',
 			'onscroll','onselect','onselectionchange','onselectstart','onstart','onstop'
 		);
-		
+
 		// 허용 태그 확인
 		if(is_array($this->allow_tags)){
 			$tmp_eventag= str_replace($this->allow_tags,'',implode('|',$event_tags));
@@ -83,7 +83,7 @@ class HtmlXssChars
 		$email_pattern = "/([ \n]+)([a-z0-9\_\-\.]+)@([a-z0-9\_\-\.]+)/";
 		return preg_replace($email_pattern,"\\1<a href=mailto:\\2@\\3>\\2@\\3</a>", " ".$this->description);
 	}
-	
+
 	# 자동 링크 걸기 2
 	public function autolink($str, $attributes=array("target"=>"_blank")) {
 		$attrs = '';
@@ -98,7 +98,7 @@ class HtmlXssChars
 			$str
 		);
 		$str = substr($str, 1);
-		
+
 		return $str;
 	}
 
@@ -112,7 +112,7 @@ class HtmlXssChars
 
  		return $url;
 	}
-	
+
 	public function getContext($mode='XSS')
 	{
 		$this->description =stripslashes($this->description);
@@ -120,8 +120,10 @@ class HtmlXssChars
 			case 'TEXT':
 				$this->description = str_replace("&nbsp;",' ',$this->description);
 				$this->description = str_replace("\r\n","\n",$this->description);
+				$this->description = str_replace("<br>","\n",$this->description);
+				$this->description = self::autolink($this->description);
+				$this->description = htmlspecialchars(stripslashes(strip_tags($this->description,'<br>')));
 				$this->description = str_replace("\n","<br />",$this->description);
-				$this->description = self::autolink($this->description);//self::setAutoLink();
 				break;
 			case 'XSS':
 				$this->description = str_replace("\r\n","\n",$this->description);
@@ -134,8 +136,8 @@ class HtmlXssChars
 				#$this->description = htmlspecialchars($this->description);
 				$this->description = str_replace("\r\n","\n",$this->description);
 				$this->description = str_replace("\n","<br />",$this->description);
-				$this->description = self::autolink($this->description);//self::setAutoLink();
-				break;				
+				$this->description = self::autolink($this->description);
+				break;
 		}
 	return $this->description;
 	}

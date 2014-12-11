@@ -16,14 +16,14 @@ class AuthSession
     private $auth_admin_args = array(
         'uid' => 'admin_uid',
         'name'=>'admin_name',
-        'userid' => 'admin_userid',
+        'email' => 'admin_email',
         'level' => 'admin_level'
     );
 
     # 웹용 세션 항목
     private $auth_www_args = array(
         'uid'=>'auth_uid',
-        'userid'=>'auth_userid',
+        'email'=>'auth_email',
         'name'=>'auth_name',
         'nickname'=>'auth_nickname',
         'level'=>'auth_level'

@@ -27,7 +27,7 @@ class MailSend
 {
 	private $headers='', $description='';
 
-	private $encoding='base64', $chrset='euc-kr';
+	private $encoding='base64', $chrset='utf-8';
 	private $content_type = 'html';
 	private $boundary = '';
 
@@ -50,16 +50,16 @@ class MailSend
 			$this->content_type = 'plain';
 
 		# 헤더 기본설정
-		$this->boundary= 'ax' . '_' . time();
+		$this->boundary= md5(uniqid(time()));
 		$this->headers = 'MIME-Version: 1.0' . "\r\n";
 
 	}
 
 	public function setHeaaderAttach($files){
 		if(is_array($files) && count($files)>0)
-			$this->headers= 'Content-Type: multipart/alternative; '.'boundary="----=_Part_001_'. $this->boundary .'"'. "\r\n";
+			$this->headers= 'Content-Type: multipart/mixed; '.'boundary="------=_Part_001_'. $this->boundary .'"'. "\r\n";
 		else
-			$this->headers.= 'Content-Type: multipart/alternative; '.'boundary="----=_Part_000_'. $this->boundary .'"'. "\r\n";
+			$this->headers.= 'Content-Type: multipart/mixed; '.'boundary="------=_Part_000_'. $this->boundary .'"'. "\r\n";
 	}
 
 	# 보내는 사람 이메일 주소 및 성명
@@ -77,11 +77,11 @@ class MailSend
 	public function setDescription($message){
 		$this->description = "\r\n";
 		$this->description.= '------=_Part_000_'.$this->boundary. "\r\n";
-		$this->description.= 'Content-Type: text/'.$this->content_type.'; charset="'. $this->chrset .'"'."\r\n";
+		$this->description.= 'Content-Type: text/'.$this->content_type.'; charset='. strtoupper($this->chrset) ."\r\n";
 		$this->description.= 'Content-Transfer-Encoding:'. $this->encoding . "\r\n\r\n";
 
 		switch($this->encoding){
-			case 'base64': $message = base64_encode(self::setCharet($message)); break;
+			case 'base64': $message = chunk_split(base64_encode(self::setCharet($message))); break;
 			default : $message = self::setCharet($message); break;
 		}
 		$this->description.= $message . "\r\n\r\n";

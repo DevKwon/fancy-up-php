@@ -311,7 +311,10 @@ if (name == '퓨전템플릿') :<br />
 <br />
 <br />
 /** <span class="style8">__toString</span> */<br />
-echo <span class="style9">$tpl</span>;    <br />
+<span class="style9">$tpl-&gt;compile_dir =_ROOT_PATH_.'/'._TPL_</span>;    <br />
+<span class="style9">//$tpl-&gt;compile     = true;</span>;    <br />
+<span class="style9">//$tpl-&gt;compression = true;</span>;    <br />
+<span class="style9">$tpl-&gt;display();</span>;    <br />
     <br />
     ?&gt;</div>
     <br />
@@ -397,7 +400,10 @@ echo <span class="style9">$tpl</span>;    <br />
         <span class="style9">$tpl</span>['<span class="style4">list</span>'] &nbsp;&nbsp;&nbsp;= <span class="style16">$loop</span>;<br />
           <br />
           <br />
-        echo <span class="style9">$tpl</span>; <br />
+          <span class="style9">$tpl-&gt;compile_dir =_ROOT_PATH_.'/'._TPL_</span>;    <br />
+        <span class="style9">//$tpl-&gt;compile     = true;</span>;    <br />
+<span class="style9">//$tpl-&gt;compression = true;</span>;    <br />
+<span class="style9">$tpl-&gt;display();</span>;    <br />
         <br />
         ?&gt;</p>
       </div>
@@ -457,7 +463,10 @@ echo <span class="style9">$tpl</span>;    <br />
         <span class="style9">$tpl</span>['<span class="style4">list</span>'] &nbsp;&nbsp;&nbsp;= <span class="style16">$loop</span>;<br />
         <br />
         <br />
-        echo <span class="style9">$tpl</span>; <br />
+        <span class="style9">$tpl-&gt;compile_dir =_ROOT_PATH_.'/'._TPL_</span>;    <br />
+        <span class="style9">//$tpl-&gt;compile     = true;</span>;    <br />
+<span class="style9">//$tpl-&gt;compression = true;</span>;    <br />
+<span class="style9">$tpl-&gt;display();</span>;    <br />
           <br />
         ?&gt;</p>
       </div>
@@ -543,7 +552,10 @@ echo <span class="style9">$tpl</span>;    <br />
         <span class="style9">$tpl</span>['<span class="style4">list</span>'] &nbsp;&nbsp;&nbsp;= <span class="style16">$loop</span>;<br />
           <br />
           <br />
-        echo <span class="style9">$tpl</span>; <br />
+          <span class="style9">$tpl-&gt;compile_dir =_ROOT_PATH_.'/'._TPL_</span>;    <br />
+        <span class="style9">//$tpl-&gt;compile     = true;</span>;    <br />
+<span class="style9">//$tpl-&gt;compression = true;</span>;    <br />
+<span class="style9">$tpl-&gt;display();</span>;    <br />
         <br />
         ?&gt;</p>
       </div>
@@ -666,7 +678,10 @@ echo <span class="style9">$tpl</span>;    <br />
 <br />
 <br />
 /** <span class="style8">__toString</span> */<br />
-echo <span class="style9">$tpl</span>;    <br />
+<span class="style9">$tpl-&gt;compile_dir =_ROOT_PATH_.'/'._TPL_</span>;    <br />
+<span class="style9">//$tpl-&gt;compile     = true;</span>;    <br />
+<span class="style9">//$tpl-&gt;compression = true;</span>;    <br />
+<span class="style9">$tpl-&gt;display();</span>;    <br />
     <br />
     ?&gt;</div>
 
@@ -707,12 +722,12 @@ echo <span class="style9">$tpl</span>;    <br />
   </tr>
 </table>
 
-# 다차원배열============================================
-[month] => Array
-                (
-                    [0] => Array
-                        (
-                            [0] => Array
+# 다차원배열============================================<br />
+[month] => Array<br />
+                (<br />
+        &nbsp;&nbsp;&nbsp;[0] => Array<br />
+         &nbsp;&nbsp;&nbsp;(<br />
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[0] => Array
                                 (
                                     [date] => 2012-04-29
                                     [day] => 29
@@ -720,8 +735,8 @@ echo <span class="style9">$tpl</span>;    <br />
                                     [holiday] =>
                                     [holiday_title] =>
                                 )
-
-                            [1] => Array
+<br />
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[1] => Array
                                 (
                                     [date] => 2012-04-30
                                     [day] => 30
@@ -729,8 +744,8 @@ echo <span class="style9">$tpl</span>;    <br />
                                     [holiday] =>
                                     [holiday_title] =>
                                 )
-
-                            [2] => Array
+<br />
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[2] => Array
                                 (
                                     [date] => 2012-05-01
                                     [day] => 1
@@ -738,48 +753,12 @@ echo <span class="style9">$tpl</span>;    <br />
                                     [holiday] =>
                                     [holiday_title] => 근로자의날
                                 )
-
-                            [3] => Array
-                                (
-                                    [date] => 2012-05-02
-                                    [day] => 2
-                                    [moon] =>
-                                    [holiday] =>
-                                    [holiday_title] =>
-                                )
-
-                            [4] => Array
-                                (
-                                    [date] => 2012-05-03
-                                    [day] => 3
-                                    [moon] =>
-                                    [holiday] =>
-                                    [holiday_title] =>
-                                )
-
-                            [5] => Array
-                                (
-                                    [date] => 2012-05-04
-                                    [day] => 4
-                                    [moon] =>
-                                    [holiday] =>
-                                    [holiday_title] =>
-                                )
-
-                            [6] => Array
-                                (
-                                    [date] => 2012-05-05
-                                    [day] => 5
-                                    [moon] => 03.15
-                                    [holiday] => 1
-                                    [holiday_title] => 어린이날
-                                )
-
-                        )
-
-                    [1] => Array
-                        (
-                            [0] => Array
+<br />
+        &nbsp;&nbsp;&nbsp;)
+<br />
+        &nbsp;&nbsp;&nbsp;[1] => Array
+        &nbsp;&nbsp;&nbsp;(<br />
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[0] => Array
                                 (
                                     [date] => 2012-05-06
                                     [day] => 6
@@ -787,8 +766,8 @@ echo <span class="style9">$tpl</span>;    <br />
                                     [holiday] =>
                                     [holiday_title] =>
                                 )
-
-                            [1] => Array
+<br />
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[1] => Array
                                 (
                                     [date] => 2012-05-07
                                     [day] => 7
@@ -796,8 +775,8 @@ echo <span class="style9">$tpl</span>;    <br />
                                     [holiday] =>
                                     [holiday_title] =>
                                 )
-
-                            [2] => Array
+<br />
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[2] => Array
                                 (
                                     [date] => 2012-05-08
                                     [day] => 8
@@ -805,47 +784,11 @@ echo <span class="style9">$tpl</span>;    <br />
                                     [holiday] =>
                                     [holiday_title] => 어버이날
                                 )
-
-                            [3] => Array
-                                (
-                                    [date] => 2012-05-09
-                                    [day] => 9
-                                    [moon] =>
-                                    [holiday] =>
-                                    [holiday_title] =>
-                                )
-
-                            [4] => Array
-                                (
-                                    [date] => 2012-05-10
-                                    [day] => 10
-                                    [moon] => 03.20
-                                    [holiday] =>
-                                    [holiday_title] =>
-                                )
-
-                            [5] => Array
-                                (
-                                    [date] => 2012-05-11
-                                    [day] => 11
-                                    [moon] =>
-                                    [holiday] =>
-                                    [holiday_title] =>
-                                )
-
-                            [6] => Array
-                                (
-                                    [date] => 2012-05-12
-                                    [day] => 12
-                                    [moon] =>
-                                    [holiday] =>
-                                    [holiday_title] =>
-                                )
-
-                        )
-
+                                <br />
+        &nbsp;&nbsp;&nbsp;)
+<br />
                 )
-
+<br /><br /><br />
 @ 방법1
 <table>
 {%for(month):%}
@@ -853,14 +796,10 @@ echo <span class="style9">$tpl</span>;    <br />
 		<td><p>{%month.key.0.day%}</p></td>
 		<td><p>{%month.key.1.day%}</p></td>
 		<td><p>{%month.i.2.day%}</p></td>
-		<td><p>{%month.i.3.day%}</p></td>
-		<td><p>{%month.i.4.day%}</p></td>
-		<td><p>{%month.key.5.day%}</p></td>
-		<td><p>{%month.key.6.day%}</p></td>
 	</tr>
 	{%endfor%}
 </table>
-
+<br /><br /><br />
 @ 방법2
 <p>{%month.0.0.day%}</p>
 <p>{%month.0.1.day%}</p>
