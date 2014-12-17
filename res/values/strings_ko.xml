@@ -1,45 +1,48 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <strings>
         <resources>
-                <app_name>fancy-up 솔루션</app_name>                
-                <admin_name>administrator</admin_name>
+                <app_name>/res/layout/web/gp/img/fancy_up_logo_gradient.png</app_name>
+                <admin_name>크리에이티브플랫폼</admin_name>
                 <admin_email>support@c1p.kr</admin_email>
-                <admin_phone_number>1588-1818</admin_phone_number>
-                <company_address>울산 테크노 파크 기술혁신B동 208호</company_address>
-                
-                <userid>이메일 아이디</userid>
+                <admin_phone_number>052-1800-8218</admin_phone_number>
+                <admin_fax_number>052-710-3133</admin_fax_number>
+                <company_address>울산광역시 중구 종가로 15.울산 테크노파크 기술혁신 B동 208호</company_address>
+                <company_address2>울산광역시 중구 다운동 421 울산 테크노파크 기술혁신 B동 208호</company_address2>
+                <userid>아이디</userid>
                 <passwd>비밀번호</passwd>
+                <name>이름</name>
                 <gid>gid</gid>
                 <uid>uid</uid>
-
                 <success_write>글을 성공적으로 등록하였습니다</success_write>
-
+                <warning_browser>인터넷익스플로러 버전 9미만 사용자는 사용할 수 없습니다. 다른브라우저(크롬,파이어폭스) 또는 스마트폰으로 접속 하세요.</warning_browser>
                 <err_isnot_member>등록되지 않은 사용자입니다</err_isnot_member>
                 <err_isnot_data>삭제되었거나 분실된 정보입니다.</err_isnot_data>
                 <err_secession_time>이미 탈퇴하였거나 허용된 사용자가 아닙니다</err_secession_time>
                 <err_isnot_nfcserial>등록되지 않은 시리얼번호입니다</err_isnot_nfcserial>
+                <err_auth>접근 권한이 없습니다.</err_auth>
                 <err_delete_auth>삭제 권한이 없습니다</err_delete_auth>
-
                 <err_null>를(을) 입력하세요</err_null>
-                <err_space>공백없이 입력해 하세요</err_space>
+                <err_spaces>공백없이 입력해 하세요</err_spaces>
+                <err_date_symbol>(년-월-일)를(을) 정확하게 입력해 주세요</err_date_symbol>
+                <err_date_period_array>날짜 기간 데이터는 배열로 등록해 주세요</err_date_period_array>
+                <err_date_period>날짜 기간을 정확하게 입력해 주세요</err_date_period>
                 <err_korean>한글을 입력할 수 없습니다</err_korean>
-                <err_symbole>특수문자를 입력할 수 없습니다</err_symbole>
+                <err_symbol>특수문자를 입력할 수 없습니다</err_symbol>
                 <err_formality>(을)를 정확하게 입력 하세요</err_formality>
                 <err_number>only numberic 숫자만 입력하세요</err_number>
                 <err_number_repeat>같은 숫자를 반복해서 3번이상 사용할 수 없습니다</err_number_repeat>
-                <err_phone_symbole>숫자 외에는 사용할 수 없습니다</err_phone_symbole>
-                <err_email_symbole><![CDATA[(@,-,_)외에는 특수문자를 입력할 수 없습니다]]></err_email_symbole>
-                <err_passwd_lenth>최소 6자에서 최대 30자까지 입력하세요</err_passwd_lenth>
+                <err_phone_symbol>숫자 외에는 사용할 수 없습니다</err_phone_symbol>
+                <err_email_symbol><![CDATA[(@,-,_)외에는 특수문자를 입력할 수 없습니다]]></err_email_symbol>
+                <err_password_length>최소 4자에서 최대 30자까지 입력하세요</err_password_length>
                 <ok_db_register>데이타를 성공적으로 처리하였습니다</ok_db_register>
                 <err_db_unenabled>데이타가 이미 삭제 되었거나 분실된 정보입니다</err_db_unenabled>
-                
                 <err_id>등록되지 않은 이메일 아이디 또는 휴대전화 번호입니다</err_id>
-        		<err_login_type>잘못된 방식으로 진입하였습니다.</err_login_type>
+                <err_passwd_mismatch>비밀번호가 일치하지 않습니다.</err_passwd_mismatch>
+                <err_login_type>잘못된 방식으로 진입하였습니다.</err_login_type>
                 <stay_logged_in>현재 로그인 상태 입니다.</stay_logged_in>
-                <err_stay_logged_in>현재 로그인 상태가 아닙니다.</err_stay_logged_in>
+                <err_not_logged_in>현재 로그인 상태가 아닙니다.</err_not_logged_in>
                 <err_authentication>아이디와 비밀번호를 정확히 입력해 주세요</err_authentication>
                 <ok_authentication>성공적으로 로그인 하였습니다</ok_authentication>
-
-                <err_menifest_act>등록되지 않은 ACTIVITY명입니다</err_menifest_act>
+                <err_manifest_not_registered>등록되지 않은 페이지입니다</err_manifest_not_registered>
         </resources>
 </strings>

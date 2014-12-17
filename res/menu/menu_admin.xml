@@ -1,21 +1,40 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
         <admin>
-            <menu title="회원관리" href="./admin.php?act=member" mid="0100"></menu>
-            <menu title="게시판관리" href="./admin.php?act=bbs_list" mid="0200"></menu>
-            <menu title="팝업관리" href="./admin.php?act=popup" mid="0300"></menu>
+            <menu title="회원관리" href="./admin.php?act=member" mid="0100" default_show="true"></menu>
+            <menu title="게시판관리" href="./admin.php?act=bbs_list" mid="0200" default_show="true"></menu>
+            <menu title="댓글관리" href="./admin.php?act=comment_list" mid="0300" default_show="true"></menu>
+            <menu title="팝업관리" href="./admin.php?act=popup" mid="0400" default_show="false"></menu>
+            <menu title="폼 관리" href="./admin.php?act=forms_list" mid="0500" default_show="false"></menu>
+            <menu title="이메일관리" href="./admin.php?act=email_list" mid="0600" default_show="false"></menu>
         </admin>
         <admin_0000>
-            <menu title="주소록" href="./admin.php?act=admin" mid="0001"></menu>
-            <menu title="근태기록" href="./admin.php?act=attendance" mid="0002"></menu>
+            <menu title="관리자" href="./admin.php?act=admin" mid="0001" default_show="false"></menu>
+            <menu title="메뉴권한" href="./admin.php?act=menuauth" mid="0002" default_show="false"></menu>
         </admin_0000>
         <admin_0100>
-            <menu title="회원목록" href="./admin.php?act=member" mid="0101"></menu>
+            <menu title="회원관리" href="./admin.php?act=member" mid="0101" default_show="true"></menu>
+            <menu title="회원등급" href="./admin.php?act=member_level" mid="0102" default_show="true"></menu>
+            <menu title="이용약관" href="./admin.php?act=policy" mid="0103" default_show="true"></menu>
+            <menu title="개인정보 보호정책" href="./admin.php?act=contract" mid="0104" default_show="true"></menu>
+            <menu title="환경설정" href="./admin.php?act=member_settings" mid="0105" default_show="true"></menu>
         </admin_0100>
         <admin_0200>
-            <menu title="게시판목록" href="./admin.php?act=bbs_list" mid="0201"></menu>
+            <menu title="게시판목록" href="./admin.php?act=bbs_list" mid="0201" default_show="true"></menu>
+            <menu title="게시판생성" href="./admin.php?act=bbs_create" mid="0202" default_show="true"></menu>
         </admin_0200>
         <admin_0300>
-            <menu title="팝업목록" href="./admin.php?act=popup" mid="0301"></menu>
+            <menu title="댓글목록" href="./admin.php?act=comment_list" mid="0301" default_show="true"></menu>
+            <menu title="댓글생성" href="./admin.php?act=comment_create" mid="0302" default_show="true"></menu>
         </admin_0300>
-</resources> 
+        <admin_0400>
+            <menu title="팝업목록" href="./admin.php?act=popup" mid="0401" default_show="false"></menu>
+        </admin_0400>
+		<admin_0500>
+            <menu title="폼 목록" href="./admin.php?act=forms_list" mid="0501" default_show="false"></menu>
+            <menu title="폼 생성" href="./admin.php?act=forms_create" mid="0502" default_show="false"></menu>
+        </admin_0500>
+        <admin_0600>
+            <menu title="이메일목록" href="./admin.php?act=email_list" mid="0601" default_show="false"></menu>
+        </admin_0600>
+</resources>

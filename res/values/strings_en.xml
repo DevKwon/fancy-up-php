@@ -1,33 +1,48 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <strings>
         <resources>
-                <app_name>Fancy-Up Solution</app_name>
+                <app_name>C1P.kr</app_name>
                 <admin_name>administrator</admin_name>
                 <admin_email>support@c1p.kr</admin_email>
                 <admin_phone_number>1588-1818</admin_phone_number>
+                <admin_fax_number>052-710-3133</admin_fax_number>
                 <company_address>#B-208 Technology Innovation Complex, Ulsan TechnoPark, 15, Jonggaro, Ulsan</company_address>
-
-                <success_write>Successfully saved</success_write>
-
+                <company_address2>South Korea Ulsan Junggu Daundong 421</company_address2>
+                <userid>ID</userid>
+                <passwd>Password</passwd>
+                <name>name</name>
+                <gid>gid</gid>
+                <uid>uid</uid>
+                <success_write>Saved successfully</success_write>
+                <warning_browser>Microsoft IE 8 is not supported.\n Use another browser.</warning_browser>
                 <err_isnot_member>You are not registered user</err_isnot_member>
                 <err_isnot_data>Deleted or missing info</err_isnot_data>
                 <err_secession_time>Signed out or not valid user</err_secession_time>
                 <err_isnot_nfcserial>NFC serial number has not registered yet</err_isnot_nfcserial>
+                <err_auth>You have no permission to access.</err_auth>
                 <err_delete_auth>You have no permission to delete</err_delete_auth>
-
                 <err_null>: Please enter this item</err_null>
-                <err_space>No space(s) allowed</err_space>
+                <err_spaces>No space(s) allowed</err_spaces>
+                <err_date_symbol>Input date with valid format (yyyy-mm-dd)</err_date_symbol>
+                <err_date_period_array>Date period must be input as an array.</err_date_period_array>
+                <err_date_period>Invalid period. Check date.</err_date_period>
                 <err_korean>No Korean characters allowed</err_korean>
-                <err_symbole>No special characters allowed</err_symbole>
+                <err_symbol>No special characters allowed</err_symbol>
                 <err_formality>was incorrect, please try again</err_formality>
                 <err_number>Number only allowed</err_number>
                 <err_number_repeat>You cannot use three consecutive numbers</err_number_repeat>
-                <err_phone_symbole>Number only allowed</err_phone_symbole>
-                <err_email_symbole><![CDATA[(@,-,_)Except for these characters, no special characters allowed]]></err_email_symbole>
-                <err_passwd_lenth>A password must be 6-30 characters</err_passwd_lenth>
-                <ok_db_register>Successfully saved</ok_db_register>
+                <err_phone_symbol>Number only allowed</err_phone_symbol>
+                <err_email_symbol><![CDATA[Use following special characters only : (@, -, _)]]></err_email_symbol>
+                <err_password_length>A password must be 6-30 characters</err_password_length>
+                <ok_db_register>Saved successfully</ok_db_register>
                 <err_db_unenabled>The data was deleted or missing</err_db_unenabled>
-
-                <err_menifest_act>The page has not registered in the manifest file</err_menifest_act>
+                <err_id>Not registered user ID</err_id>
+                <err_passwd_mismatch>Password does not match</err_passwd_mismatch>
+                <err_login_type>Login type was wrong</err_login_type>
+                <stay_logged_in>You have already logged in</stay_logged_in>
+                <err_not_logged_in>You need to log in</err_not_logged_in>
+                <err_authentication>Please enter the right user ID and password</err_authentication>
+                <ok_authentication>Logged in successfully</ok_authentication>
+                <err_manifest_not_registered>The page has not registered yet</err_manifest_not_registered>
         </resources>
 </strings>

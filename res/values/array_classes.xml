@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <array_classes>
+        <item name="application">사이트 전체 기본정보</item>
+        <item name="auth">세션(로그인)</item>
+        <item name="calendars">캘린더(달력), 날짜관련</item>
+        <item name="date">날짜관련 유용한 기능</item>
+        <item name="db">데이터 베이스</item>
+        <item name="dir">디렉토리</item>
+        <item name="encrypt">암호화</item>
+        <item name="files">파일 다운로드, 업로드, 사이즈</item>
+        <item name="ftp">FTP</item>
+        <item name="html">HTML 출력(XSS, checkbox,select,checkbox)등</item>
+        <item name="image">이미지 관련(출력, GD, Exif)등</item>
+        <item name="mail">메일</item>
+        <item name="out">데이터(json, html, xml)출력</item>
+        <item name="paging">페이징 클래스</item>
+        <item name="preference">파일을 활용한 데이터 관리</item>
+        <item name="push">디바이스 push 클래스(Android,IOS)</item>
+        <item name="req">Request 전송 데이터 체크</item>
+        <item name="res">XML to Array 기능</item>
+        <item name="status"></item>
+        <item name="string">문자관련(문자자르기,랜텀,키워드 토큰화)등</item>
+        <item name="template">MVC패턴용 템플릿</item>
+        <item name="url">URL관련</item>
+        <item name="util">UTIL(Cache, DB Where문)</item>
+        <item name="xml">XML 데이터 처리</item>
+    </array_classes>
+    <array_class_file>
+        <item name="ApplicationEnviron">접속에 따른 디바이스|브라우저등 정보</item>
+        <item name="AuthCookie">쿠키</item>
+        <item name="AuthSession">세션</item>
+        <item name="DbMySqli">DB MySqli 클래스</item>
+        <item name="DbSqlite">DB SqlLite 클래스</item>
+        <item name="DbSqliteResult">DB SqlLite Result 클래스</item>
+        <item name="DbSwitch">DB 공통 interface</item>
+        <item name="Template">MVC 패턴목적, 디자인과 프로그램의 분리</item>
+        <item name="TemplateCompiler">PHP 데이터와 HTML 바인딩</item>
+        <item name="TemplateLibCSSMin">css 파일 압축용</item>
+        <item name="TemplateLibJSMin">js 파일 압축용</item>
+        <item name="TemplateVariable">템블릿 컴파일 및 템플릿 클래스에서 사용할 값들(Array)</item>
+    </array_class_file>
+</resources>

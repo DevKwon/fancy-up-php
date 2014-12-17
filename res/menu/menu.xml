@@ -1,16 +1,38 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
         <web>
-            <menu title="Home" href="./?act=index" mid="0100"></menu>
-            <menu title="회사소개" href="./?act=member" mid="0200"></menu>
-            <menu title="사업분야" href="./?act=login" mid="0300"></menu>
-            <menu title="Portfolio" href="./?act=login" mid="0400"></menu>
-            <menu title="투자/제휴문의" href="./?act=login" mid="0500"></menu>
-            <menu title="고객센터" href="./?act=bbs_notice" mid="0600"></menu>
+            <menu title="Design" href="./?act=skin" mid="0100"></menu>
+            <menu title="Development" href="./?act=classes" mid="0201"></menu>
+            <menu title="Projects" href="./?act=kcomwel" mid="0300"></menu>
+            <menu title="Community" href="./?act=freeboard" mid="0400"></menu>
+            <menu title="Fancy-up-php API" href="./?act=notice" mid="0501"></menu>
+            <menu title="Download" href="./?act=download" mid="0600"></menu>
         </web>
-        <sub_0600>
-        	<menu title="공지사항(notice)" href="./?act=bbs_notice" mid="0601"></menu>
-        	<menu title="대시보드(dashboard)" href="./?act=bbs_dashboard" mid="0602"></menu>
-        	<menu title="질문게시판(QnA)" href="./?act=bbs_qna" mid="0603"></menu>
-        </sub_0600>
+        <sub_0100>
+            <menu title="모듈 스킨" href="./?act=skin" mid="0101"></menu>
+            <menu title="템플릿 테마" href="./?act=theme" mid="0102"></menu>
+        </sub_0100>
+        <sub_0200>
+        	<menu title="classes" href="./?act=classes" mid="0201"></menu>
+        	<menu title="function" href="#" mid="0202"></menu>
+        	<menu title="Template" href="#" mid="0203"></menu>
+        </sub_0200>
+        <sub_0300>
+        	<menu title="근로복지공단" href="./?act=kcomwel" mid="0301"></menu>
+        </sub_0300>
+        <sub_0400>
+	<menu title="공지사항" href="./?act=itnotice" mid="0401"></menu>
+        	<menu title="자유게시판" href="./?act=freeboard" mid="0402"></menu>
+            <menu title="갤러리" href="./?act=itgallery" mid="0403"></menu>
+        </sub_0400>
+        <sub_0500>
+        	<menu title="Developer Team" href="./?act=notice" mid="0501"></menu>
+        	<menu title="Front-End Team" href="./?act=qna" mid="0502"></menu>
+        	<menu title="API manual &amp; modules" href="./?act=faq" mid="0503"></menu>
+            <menu title="자료실" href="./?act=filedata" mid="0504"></menu>
+        </sub_0500>
+        <sub_9900>
+        	<menu title="아이디 찾기" href="./?act=member&amp;mode=id_recovery" mid="9901"></menu>
+        	<menu title="비밀번호 찾기" href="./?act=member&amp;mode=password_recovery" mid="9902"></menu>
+        </sub_9900>
 </resources>

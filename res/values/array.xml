@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <resources>
     <array_email>
         <a>hotmail.com</a>
@@ -22,16 +22,49 @@
         <s>teramail.com</s>
         <t>metq.com</t>
         <u>gmail.com</u>
-        <v>c1p.kr</v>
     </array_email>
     <array_admin_level>
-        <level99>관리자</level99>
-        <level100>수퍼관리자</level100>
-    </array_admin_level>
+        <level_98>일반</level_98>
+        <level_99>관리</level_99>
+        <level_100>수퍼</level_100>
+    <level_95>1</level_95><level_96>2</level_96><level_97>3</level_97></array_admin_level>
     <array_member_level>
-        <level0>비회원</level0>
-        <level1>일반회원</level1>
-        <level2>유료회원</level2>
-        <level9>게시판관리자</level9>
-    </array_member_level>
+        <level_0>비회원</level_0>
+        <level_1>일반회원</level_1>
+        <level_2>정회원</level_2>
+        <level_9>게시판관리자</level_9>
+    <level_3>CP직원</level_3></array_member_level>
+    <array_forms_process>
+        <waiting>접수대기</waiting>
+        <processing>처리중</processing>
+        <completed>처리완료</completed>
+    </array_forms_process>
+    <array_portfolio>
+    	<category00>Main Work</category00>
+        <category01>이력 / 관리</category01>
+        <category02>안전 / 보안</category02>
+        <category03>문화 / 관광</category03>
+        <category04>기타</category04>
+    </array_portfolio>
+    <array_list_type>
+        <list>일반(다단)</list>
+        <qna>뉴스(웹진)</qna>
+        <faq>자주묻는질문</faq>
+        <news>묻고답하기</news>
+        <gallery>갤러리</gallery>
+    </array_list_type>
+    <array_date_type>
+        <item title="2014.05.01 16:10">Y.m.d H:i</item>
+        <item title="2014.05.01">Y.m.d</item>
+        <item title="14.05.01">y.m.d</item>
+        <item title="2014-05-01">Y-m-d</item>
+        <item title="14-05-01">y-m-d</item>
+        <item title="05.01">m.d</item>
+        <item title="05-01">m-d</item>
+    </array_date_type>
+    <array_markup_type>
+        <XSS>기본</XSS>
+        <HTML>HTML</HTML>
+        <TEXT>TEXT</TEXT>
+    </array_markup_type>
 </resources>

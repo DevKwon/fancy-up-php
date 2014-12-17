@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest>
+    <activity>
+    	<admin>milk/admin.html</admin>
+        <index>milk/index.html</index>
+        <bbs>milk/bbs/bbs.html</bbs>
+        <bbs_list>milk/bbs/bbs_list.html</bbs_list>
+        <bbs_create>milk/bbs/bbs_create.html</bbs_create>
+        <bbs_settings>milk/bbs/bbs_settings.html</bbs_settings>
+        <bbs_settings_category>milk/bbs/bbs_settings_category.html</bbs_settings_category>
+        <bbs_settings_form>milk/bbs/bbs_settings_form.html</bbs_settings_form>
+        <bbs_settings_skin>milk/bbs/bbs_settings_skin.html</bbs_settings_skin>
+        <comment>milk/comment/comment.html</comment>
+        <comment_list>milk/comment/comment_list.html</comment_list>
+        <comment_create>milk/comment/comment_create.html</comment_create>
+        <comment_settings>milk/comment/comment_settings.html</comment_settings>
+        <comment_settings_form>milk/comment/comment_settings_form.html</comment_settings_form>
+        <comment_settings_skin>milk/comment/comment_settings_skin.html</comment_settings_skin>
+        <member>milk/member/member.html</member>
+        <member_level>milk/member/member_level.html</member_level>
+        <member_settings>milk/member/member_settings.html</member_settings>
+        <member_settings_form>milk/member/member_settings_form.html</member_settings_form>
+        <member_settings_skin>milk/member/member_settings_skin.html</member_settings_skin>
+        <login>milk/login.html</login>
+        <popup>milk/popup/popup.html</popup>
+        <menuauth>milk/menuauth.html</menuauth>
+        <dashboard>milk/dashboard.html</dashboard>
+        <preferences>milk/preferences.html</preferences>
+        <policy>milk/member/policy.html</policy>
+        <contract>milk/member/contract.html</contract>
+        <forms>milk/forms/forms.html</forms>
+        <forms_list>milk/forms/forms_list.html</forms_list>
+        <forms_create>milk/forms/forms_create.html</forms_create>
+        <forms_settings>milk/forms/forms_settings.html</forms_settings>
+        <forms_settings_form>milk/forms/forms_settings_form.html</forms_settings_form>
+        <forms_settings_category>milk/forms/forms_settings_category.html</forms_settings_category>
+        <forms_settings_skin>milk/forms/forms_settings_skin.html</forms_settings_skin>
+        <email_list>milk/email/email_list.html</email_list>
+        <email_settings>milk/email/email_settings.html</email_settings>
+        <email_settings_strings>milk/email/email_settings_strings.html</email_settings_strings>
+    </activity>
+
+    <preference>
+        <login_url><![CDATA[/src/admin.php?act=login]]></login_url>
+    </preference>
+</manifest>

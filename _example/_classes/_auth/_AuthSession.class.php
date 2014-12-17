@@ -8,12 +8,12 @@ $auth->sessionStart();
 
 # 세션키 생성 AuthSession(www String  | admin String)
 $auth=new AuthSession();
-$auth->regiAuth(array(
-    'auth_uid'=>'1',
-    'auth_userid'=>'fancy-up',
-    'auth_name'=>'개발자',
-    'auth_nickname' => 'AX개발자'
-));
+// $auth->regiAuth(array(
+//     'auth_uid'=>'1',
+//     'auth_userid'=>'fancy-up',
+//     'auth_name'=>'개발자',
+//     'auth_nickname' => 'AX개발자'
+// ));
 
 // $auth=new AuthSession('admin);
 // $auth->regiAuth(array(

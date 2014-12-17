@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest>
+	<activity>
+		<skin>gp/design/skin.html</skin>
+		<theme>gp/design/theme.html</theme>
+
+		<classes>gp/development/classes.html</classes>
+		<classes_view>gp/development/classes_view.html</classes_view>
+
+		<contact>gp/community/community.html</contact>
+		<itnotice>gp/community/itnotice.html</itnotice>
+		<itgallery>gp/community/itgallery.html</itgallery>
+
+		<nfc_products>gp/projects/projects.html</nfc_products>
+
+
+		<notice>gp/fancyup/developer.html</notice>
+		<qna>gp/fancyup/front.html</qna>
+		<faq>gp/fancyup/aip.html</faq>
+		<filedata>gp/fancyup/filedata.html</filedata>
+		<freeboard>gp/fancyup/freeboard.html</freeboard>
+		<kcomwel>gp/fancyup/kcomwel.html</kcomwel>
+
+		<download>gp/download.html</download>
+
+		<index>gp/index.html</index>
+
+		<terms_policy>gp/member/terms_policy.html</terms_policy>
+		<member>gp/member/member.html</member>
+		<login>gp/member/login.html</login>
+	</activity>
+
+	<preference>
+	    <login_url><![CDATA[/src/index.php?act=login]]></login_url>
+	</preference>
+</manifest>
