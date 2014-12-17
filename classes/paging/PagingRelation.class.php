@@ -6,7 +6,7 @@
 | @Editor	: Eclipse(default)
 | @UPDATE	: 2010-03-17
 ----------------------------------------------------------*/
-class PageingRelation
+class PagingRelation
 {
 	private $url;					# 이동주소
 	private $urlQuery;				# 주소쿼리
@@ -25,7 +25,7 @@ class PageingRelation
 	# 출력 div id 및 추가 태그 설정
 	private $tags = array();			# 추가 태그 등록
 	private $tags_txt = '';
-	private $divElementId = 'pageing'; # 페이징 둘러싸고 있는 div 아이디명
+	private $divElementId = 'paging'; # 페이징 둘러싸고 있는 div 아이디명
 	private $current_page_tags = ''; #현재블록 추가 태그
 
 	private $numeric_prefix = '';
@@ -47,7 +47,7 @@ class PageingRelation
 			'ko' =>'마지막',
 			'en' =>'last page'
 	);
-	
+
 	/**1
 	 * 필요한 기본값 등록
 	 * @param $url			: 기본경로(./list.php || list.php?a=1&b=2)
@@ -59,11 +59,11 @@ class PageingRelation
 		$this->totalRecord	= $totalRecord;
 		$this->page			= (!empty($page)) ? $page : 1;
 	}
-	
+
 	# 2 한페이지에 출력할 레코드 갯수
 	public function setQueryCount($pagecount=10){
 		$this->totalPage= @ceil($this->totalRecord/$pagecount);
-		
+
 		if($this->totalRecord ==0){
 			$this->qLimitStart= 0;
 			$this->qLimitEnd= 0;
@@ -83,7 +83,7 @@ class PageingRelation
 
 		$this->pageLimit = $pagecount;
 	}
-	
+
 	/** 3
 	 * @void
 	 * url 뒤에 붙일 http query 값
@@ -101,10 +101,10 @@ class PageingRelation
 					$this->urlQueryArray[$pk]=$pv;
 				}
 			}
-			
+
 			$this->urlQuery = http_build_query($this->urlQueryArray, $numeric_prefix);
 		}
-		
+
 		if(!$numeric_prefix){
 			if(strpos($this->url,'?') !==false) $this->url.= $this->urlQuery;
 			else $this->url.= '?'.$this->urlQuery;
@@ -112,10 +112,10 @@ class PageingRelation
 			$this->numeric_prefix = 'js';
 		}
 	}
-	
+
 	# 4 @void
 	# 태그 추가 등록, css 클래스 명이라던지 추가 기능
-	# <a href="" class="pageing">
+	# <a href="" class="paging">
 	public function addTags($name,$value){
 		if(!$this->tags[$name]){
 			$this->tags[$name]= $value;
@@ -143,7 +143,7 @@ class PageingRelation
 		}
 	return $result;
 	}
-	
+
 	# return 이전페이지
 	public function prevPage(){
 		$result = '';
@@ -157,7 +157,7 @@ class PageingRelation
 		}
 	return $result;
 	}
-	
+
 	# return 다음페이지
 	public function nextPage(){
 		$result = '';
@@ -182,10 +182,10 @@ class PageingRelation
 				$result ='<li><a href="#" onclick="'.$this->url.'(\''.$this->urlQuery.'&page=1\');return false;" '.$cur_page_tag.' '.$this->tags_txt.'>'.$pagenum.'</a></li>';
 			else
 				$result = '<li><a href="'.$page_url.'&page=1" '.$this->tags_txt.'>'.$this->rewind_name[_LANG_].'</a></li>';
-		}		
+		}
 	return $result;
 	}
-	
+
 	# return 마지막페이지
 	public function lastPage(){
 		$result = '';
@@ -212,8 +212,8 @@ class PageingRelation
 			return $this->{$propertyName} = $valuez;
 		}
 	}
-	
-	# @return 
+
+	# @return
 	# 출력
 	public function printOut(){
 		$result = '';
@@ -224,7 +224,7 @@ class PageingRelation
 		#$result.= self::lastPage();
 	return $result;
 	}
-	
+
 	# @return
 	# obj 출력
 	public function __toString(){
