@@ -73,7 +73,28 @@ final class ApplicationEnviron
         $this->host = 'http://'.$_SERVER['SERVER_NAME'];
 
         # ip address
-        $this->ip_address = $_SERVER['REMOTE_ADDR'];
+        $this->ip_address = self::get_client_ip();
+    }
+
+    #@ return string
+    # ip 주소 확인
+    private function get_client_ip()
+    {
+        $result = '';
+        if ($_SERVER['HTTP_CLIENT_IP'])
+            $result = $_SERVER['HTTP_CLIENT_IP'];
+        else if($_SERVER['HTTP_X_FORWARDED_FOR'])
+            $result = $_SERVER['HTTP_X_FORWARDED_FOR'];
+        else if($_SERVER['HTTP_X_FORWARDED'])
+            $result = $_SERVER['HTTP_X_FORWARDED'];
+        else if($_SERVER['HTTP_FORWARDED_FOR'])
+            $result = $_SERVER['HTTP_FORWARDED_FOR'];
+        else if($_SERVER['HTTP_FORWARDED'])
+            $result = $_SERVER['HTTP_FORWARDED'];
+        else if($_SERVER['REMOTE_ADDR'])
+            $result = $_SERVER['REMOTE_ADDR'];
+
+    return $result;
     }
 
     #@ return boolean
@@ -81,9 +102,8 @@ final class ApplicationEnviron
     public function is_apple_device(){
         if(preg_match( '/(iPod|iPhone|iPad)/', $this->platform)){
             return 'true';
-        } else {
+        else
             return 'false';
-        }
     }
 
     #@ interface : ArrayAccess
