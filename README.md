@@ -53,3 +53,7 @@ fancy-up-php
 [] PHP Version 5.3+
 [] Standard PHP Library (SPL) 
 [] ftp : --enable-ftp (관리자 옵션 설정에 사용) 
+
+
+<br>
+http://fancyup.c1p.kr
