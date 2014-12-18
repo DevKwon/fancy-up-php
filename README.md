@@ -12,6 +12,16 @@ fancy-up-php
 <b>/config  :</b> 기본 설정 경로<br />
 <b>/function:</b> 함수 모음<br />
 <b>/res     :</b> 리소스(xml, html, js, css) 폴더<br />
+<table>
+  <tr>
+    <td>layout</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>menu</td>
+    <td></td>
+  </tr>
+</table>
 <b>/src     :</b> php 실 프로그램밍 폴더<br />
 
 ===============================
