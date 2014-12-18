@@ -100,7 +100,7 @@ final class ApplicationEnviron
     #@ return boolean
     # 애플사 제품인지 확인
     public function is_apple_device(){
-        if(preg_match( '/(iPod|iPhone|iPad)/', $this->platform)){
+        if(preg_match( '/(iPod|iPhone|iPad)/', $this->platform))
             return 'true';
         else
             return 'false';
