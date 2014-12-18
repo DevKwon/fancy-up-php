@@ -15,11 +15,34 @@ fancy-up-php
 <table>
   <tr>
     <td>layout</td>
-    <td></td>
+    <td>HTML, js, csss 웹템플릿 작업 폴더</td>
   </tr>
   <tr>
     <td>menu</td>
-    <td></td>
+    <td>전체 메뉴 관리 xml </td>
+  </tr>
+  <tr>
+    <td>query</td>
+    <td>데이터베이스 쿼리용 xml </td>
+  </tr>
+  <tr>
+    <td>raw</td>
+    <td>가공되지 않은 xml 데이터 (회원약관내용,mp3, mp4)등</td>
+  </tr>
+  <tr>
+    <td>values</td>
+    <td>
+        값 자체가 데이터형이 것들<br />
+        <ul>
+          <li>array.xml : 모든 값이 배열 형태 리스트</li>
+          <li>integers.xml : 모든 값이 int 형</li>
+          <li>strings_ko.xml, strings_en.xml  : 값이 String 형</li>
+        </ul>
+    </td>
+  </tr>
+  <tr>
+    <td>xml</td>
+    <td>각종 설정에 필요한 설정용 xml</td>
   </tr>
 </table>
 <b>/src     :</b> php 실 프로그램밍 폴더<br />
